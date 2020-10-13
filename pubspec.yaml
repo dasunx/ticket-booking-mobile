@@ -32,6 +32,7 @@ dependencies:
   shared_preferences: ^0.5.12
   payhere_flutter: ^0.1.1
   qr_flutter: ^3.2.0
+  intl: ^0.16.1
 
 dev_dependencies:
   flutter_test:

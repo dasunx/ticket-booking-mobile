@@ -7,7 +7,9 @@ import 'package:ticket_booking_client/class/Styles.dart';
 import 'package:ticket_booking_client/screens/auth/login_screen.dart';
 import 'package:ticket_booking_client/screens/auth/register_screen.dart';
 import 'package:ticket_booking_client/screens/payment/make_payment.dart';
+import 'package:ticket_booking_client/screens/payment/payment_history.dart';
 import 'package:ticket_booking_client/screens/qrcode/qrcode.dart';
+import 'package:ticket_booking_client/screens/travel/travel_history.dart';
 
 void main() {
   runApp(MyApp());
@@ -51,7 +53,9 @@ class _MyAppState extends State<MyApp> {
               LoginScreen.id: (context) => LoginScreen(),
               HomeScreen.id: (context) => HomeScreen(),
               MakePayment.id: (context) => MakePayment(),
-              QrCode.id: (context) => QrCode()
+              PaymentHistory.id: (context) => PaymentHistory(),
+              QrCode.id: (context) => QrCode(),
+              TravelHistory.id: (context) => TravelHistory()
             },
           );
         },

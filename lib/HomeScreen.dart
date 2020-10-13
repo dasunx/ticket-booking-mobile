@@ -15,6 +15,8 @@ class _HomeScreenState extends State<HomeScreen> {
   PanelController _pc = new PanelController();
   @override
   Widget build(BuildContext context) {
+    final themeChange = Provider.of<DarkThemeProvider>(context);
+
     BorderRadiusGeometry radius = BorderRadius.only(
       topLeft: Radius.circular(14.0),
       topRight: Radius.circular(14.0),
@@ -31,14 +33,16 @@ class _HomeScreenState extends State<HomeScreen> {
           child: QrCode(),
         ),
         collapsed: Container(
-          decoration: BoxDecoration(color: Colors.white, borderRadius: radius),
+          decoration: BoxDecoration(
+              color: themeChange.darkTheme ? Color(0XFF1E453E) : Colors.white,
+              borderRadius: radius),
           child: Column(
             children: [
               Container(
                 padding: EdgeInsets.all(20),
                 margin: EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: Colors.black26,
+                  color: themeChange.darkTheme ? Colors.white : Colors.black45,
                   borderRadius: new BorderRadius.only(
                     topLeft: const Radius.circular(40.0),
                     topRight: const Radius.circular(40.0),
@@ -52,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Center(
                 child: Text(
                   "Swipe up to view qr code",
-                  style: TextStyle(color: Colors.black, fontSize: 18),
+                  style: TextStyle(fontSize: 18),
                 ),
               ),
             ],

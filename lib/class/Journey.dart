@@ -5,12 +5,8 @@ class Journey {
   DateTime endTime;
   double cost;
 
-  Journey(
-      {this.startingPlace,
-      this.endingPlace,
-      this.startTime,
-      this.endTime,
-      this.cost});
+  Journey(this.startingPlace, this.endingPlace, this.startTime, this.endTime,
+      this.cost);
 
   Journey.fromJson(Map<String, dynamic> json)
       : startingPlace = json['startingPlace'],
