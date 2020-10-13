@@ -6,6 +6,7 @@ import 'package:ticket_booking_client/class/DarkThemeProvider.dart';
 import 'package:ticket_booking_client/class/Styles.dart';
 import 'package:ticket_booking_client/screens/auth/login_screen.dart';
 import 'package:ticket_booking_client/screens/auth/register_screen.dart';
+import 'package:ticket_booking_client/screens/payment/make_payment.dart';
 
 void main() {
   runApp(MyApp());
@@ -48,6 +49,7 @@ class _MyAppState extends State<MyApp> {
               RegisterScreen.id: (context) => RegisterScreen(),
               LoginScreen.id: (context) => LoginScreen(),
               HomeScreen.id: (context) => HomeScreen(),
+              MakePayment.id: (context) => MakePayment()
             },
           );
         },
