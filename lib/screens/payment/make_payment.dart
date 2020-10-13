@@ -1,7 +1,12 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'dart:ui';
 import 'package:payhere_flutter/payhere_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:ticket_booking_client/HomeScreen.dart';
+import 'package:ticket_booking_client/class/DarkThemeProvider.dart';
+import 'package:ticket_booking_client/components/AlertDialog.dart';
 import 'package:ticket_booking_client/components/CustomDrawer.dart';
 
 class MakePayment extends StatefulWidget {
@@ -11,6 +16,10 @@ class MakePayment extends StatefulWidget {
 }
 
 class _MakePaymentState extends State<MakePayment> {
+  FocusNode fnMobile = new FocusNode();
+  FocusNode fnPass = new FocusNode();
+  FocusNode fnAmount = new FocusNode();
+
   InitRequest req = InitRequest();
   PHConfigs configs = PHConfigs();
   String responseText = "";
@@ -48,16 +57,39 @@ class _MakePaymentState extends State<MakePayment> {
         .add(Item.create(id: null, name: "demo", quantity: 4, amount: 45.56));
   }
 
+  GlobalKey<ScaffoldState> _scaffoldState = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     double keyboardH = MediaQuery.of(context).viewInsets.bottom;
+    final themeChange = Provider.of<DarkThemeProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Account top-up"),
       ),
+      // drawer: CustomDrawer(
+      //   id: MakePayment.id,
+      // ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
+      // floatingActionButton: Builder(
+      //   builder: (BuildContext context) {
+      //     return FloatingActionButton(
+      //       backgroundColor: Colors.transparent,
+      //       splashColor: Colors.white,
+      //       elevation: 0,
+      //       child: Icon(Icons.menu),
+      //       onPressed: () {
+      //         Scaffold.of(context).openDrawer();
+      //       },
+      //     );
+      //   },
+      // ),
       body: GestureDetector(
         onTap: () {
           FocusScope.of(context).unfocus();
+          fnPass.unfocus();
+          fnAmount.unfocus();
+          fnMobile.unfocus();
         },
         child: Container(
           decoration: BoxDecoration(
@@ -88,7 +120,8 @@ class _MakePaymentState extends State<MakePayment> {
                       Expanded(
                         flex: keyboardH > 0 ? 1 : 6,
                         child: Image(
-                          image: AssetImage("images/reg_image.png"),
+                          image:
+                              AssetImage("images/Payment Information-pana.png"),
                         ),
                       ),
                       Expanded(
@@ -108,7 +141,9 @@ class _MakePaymentState extends State<MakePayment> {
               Expanded(
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: themeChange.darkTheme
+                        ? Color(0XFF1A237E)
+                        : Colors.white,
                     borderRadius: BorderRadius.only(
                       topRight: Radius.circular(keyboardH > 0 ? 0 : 30),
                       topLeft: Radius.circular(keyboardH > 0 ? 0 : 30),
@@ -118,73 +153,62 @@ class _MakePaymentState extends State<MakePayment> {
                   child: Column(
                     children: [
                       Container(
-                        child: Theme(
-                          data: ThemeData(),
-                          child: TextField(
-                            onTap: () {},
-                            onChanged: (value) {
-                              req.getCustomer().setPhone(value);
-                            },
-                            decoration: InputDecoration(
-                                prefixIcon: Icon(Icons.person),
-                                enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors.grey, width: 1)),
-                                border: OutlineInputBorder(),
-                                labelText: "Mobile",
-                                hintStyle: TextStyle(
-                                  color: Colors.grey[400],
-                                )),
-                          ),
+                        child: TextField(
+                          autofocus: false,
+                          focusNode: fnMobile,
+                          onChanged: (value) {
+                            req.getCustomer().setPhone(value);
+                          },
+                          decoration: InputDecoration(
+                              prefixIcon: Icon(Icons.person),
+                              border: OutlineInputBorder(),
+                              labelText: "Mobile",
+                              hintStyle: TextStyle(
+                                color: Colors.grey[400],
+                              )),
                         ),
                       ),
                       SizedBox(
                         height: 10,
                       ),
                       Container(
-                        child: Theme(
-                          data: ThemeData(),
-                          child: TextField(
-                            obscureText: true,
-                            decoration: InputDecoration(
-                                prefixIcon: Icon(Icons.remove_red_eye),
-                                border: OutlineInputBorder(),
-                                enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors.grey, width: 1)),
-                                labelText: "Password",
-                                // errorText:
-                                // emailValidation ? "Add Valid Email" : null,
-                                errorBorder: OutlineInputBorder().copyWith(
-                                    borderSide: BorderSide(color: Colors.red)),
-                                hintStyle: TextStyle(
-                                  color: Colors.grey[400],
-                                )),
-                          ),
+                        child: TextField(
+                          focusNode: fnPass,
+                          obscureText: true,
+                          decoration: InputDecoration(
+                              prefixIcon: Icon(Icons.remove_red_eye),
+                              border: OutlineInputBorder(),
+                              labelText: "Password",
+
+                              // errorText:
+                              // emailValidation ? "Add Valid Email" : null,
+                              errorBorder: OutlineInputBorder().copyWith(
+                                  borderSide: BorderSide(color: Colors.red)),
+                              hintStyle: TextStyle(
+                                color: Colors.grey[400],
+                              )),
                         ),
                       ),
                       SizedBox(
                         height: 10,
                       ),
                       Container(
-                        child: Theme(
-                          data: ThemeData(),
-                          child: TextField(
-                            decoration: InputDecoration(
-                                prefixIcon: Icon(Icons.attach_money),
-                                border: OutlineInputBorder(),
-                                enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors.grey, width: 1)),
-                                labelText: "Amount",
-                                // errorText:
-                                // emailValidation ? "Add Valid Email" : null,
-                                errorBorder: OutlineInputBorder().copyWith(
-                                    borderSide: BorderSide(color: Colors.red)),
-                                hintStyle: TextStyle(
-                                  color: Colors.grey[400],
-                                )),
-                          ),
+                        child: TextField(
+                          focusNode: fnAmount,
+                          onChanged: (value) {
+                            req.setAmount(double.parse(value));
+                          },
+                          decoration: InputDecoration(
+                              prefixIcon: Icon(Icons.attach_money),
+                              border: OutlineInputBorder(),
+                              labelText: "Amount",
+                              // errorText:
+                              // emailValidation ? "Add Valid Email" : null,
+                              errorBorder: OutlineInputBorder().copyWith(
+                                  borderSide: BorderSide(color: Colors.red)),
+                              hintStyle: TextStyle(
+                                color: Colors.grey[400],
+                              )),
                         ),
                       ),
                       SizedBox(
@@ -202,7 +226,34 @@ class _MakePaymentState extends State<MakePayment> {
                           PhResponse response =
                               await PayhereFlutter.oneTimePaymentSandbox(
                                   request: req);
+                          print("responseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
                           print(response.toJson().toString());
+                          if (response.toJson()['status'].toString() == "1") {
+                            showAlertDialog(
+                                context,
+                                "Payment Successful",
+                                response.toJson()['data']['message'].toString(),
+                                "Ok",
+                                "view payments", () {
+                              Navigator.pop(context);
+                            }, () {
+                              Navigator.pop(context);
+                              Navigator.pop(context);
+                              Navigator.popAndPushNamed(context, HomeScreen.id);
+                            });
+                          } else {
+                            showAlertDialog(
+                                context,
+                                "Transaction failed",
+                                "${response.toJson()['data']['message'].toString()} please check your details",
+                                "ok",
+                                "cancel", () {
+                              Navigator.pop(context);
+                            }, () {
+                              Navigator.pop(context);
+                            });
+                          }
+
                           setState(() {
                             responseText = response.toJson().toString();
                           });
@@ -215,9 +266,6 @@ class _MakePaymentState extends State<MakePayment> {
             ],
           ),
         ),
-      ),
-      drawer: CustomDrawer(
-        id: MakePayment.id,
       ),
     );
   }
