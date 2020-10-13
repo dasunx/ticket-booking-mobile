@@ -1,4 +1,4 @@
-package com.dasunx.ticket_booking_client
+package com.dasunx.ticket
 
 import io.flutter.embedding.android.FlutterActivity
 

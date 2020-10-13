@@ -5,6 +5,7 @@ import 'package:ticket_booking_client/HomeScreen.dart';
 import 'package:ticket_booking_client/WelcomeScreen.dart';
 import 'package:ticket_booking_client/class/DarkThemeProvider.dart';
 import 'package:ticket_booking_client/screens/auth/register_screen.dart';
+import 'package:ticket_booking_client/screens/payment/make_payment.dart';
 
 class CustomDrawer extends StatefulWidget {
   final String id;
@@ -82,7 +83,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   ),
                   DrawerListTile(
                     icon: Icons.add_box,
-                    onPress: () {},
+                    onPress: () {
+                      makeRoutes(context, MakePayment.id);
+                    },
                     title: "Top up",
                   ),
                   DrawerListTile(
