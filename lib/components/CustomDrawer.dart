@@ -6,7 +6,9 @@ import 'package:ticket_booking_client/WelcomeScreen.dart';
 import 'package:ticket_booking_client/class/DarkThemeProvider.dart';
 import 'package:ticket_booking_client/screens/auth/register_screen.dart';
 import 'package:ticket_booking_client/screens/payment/make_payment.dart';
+import 'package:ticket_booking_client/screens/payment/payment_history.dart';
 import 'package:ticket_booking_client/screens/qrcode/qrcode.dart';
+import 'package:ticket_booking_client/screens/travel/travel_history.dart';
 
 class CustomDrawer extends StatefulWidget {
   final String id;
@@ -100,13 +102,15 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   ),
                   DrawerListTile(
                     icon: Icons.directions_bus,
-                    onPress: () {},
+                    onPress: () {
+                      makeRoutes(context, TravelHistory.id);
+                    },
                     title: "Travel History",
                   ),
                   DrawerListTile(
                     icon: Icons.history,
                     onPress: () {
-                      makeRoutes(context, WelcomeScreen.id);
+                      makeRoutes(context, PaymentHistory.id);
                     },
                     title: "Payment History",
                   ),
