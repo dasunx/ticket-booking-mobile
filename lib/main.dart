@@ -7,6 +7,7 @@ import 'package:ticket_booking_client/class/Styles.dart';
 import 'package:ticket_booking_client/screens/auth/login_screen.dart';
 import 'package:ticket_booking_client/screens/auth/register_screen.dart';
 import 'package:ticket_booking_client/screens/payment/make_payment.dart';
+import 'package:ticket_booking_client/screens/qrcode/qrcode.dart';
 
 void main() {
   runApp(MyApp());
@@ -43,13 +44,14 @@ class _MyAppState extends State<MyApp> {
             debugShowCheckedModeBanner: false,
             title: 'Flutter Widgets',
             theme: Styles.themeData(themeChangeProvider.darkTheme, context),
-            initialRoute: WelcomeScreen.id,
+            initialRoute: HomeScreen.id,
             routes: {
               WelcomeScreen.id: (context) => WelcomeScreen(),
               RegisterScreen.id: (context) => RegisterScreen(),
               LoginScreen.id: (context) => LoginScreen(),
               HomeScreen.id: (context) => HomeScreen(),
-              MakePayment.id: (context) => MakePayment()
+              MakePayment.id: (context) => MakePayment(),
+              QrCode.id: (context) => QrCode()
             },
           );
         },

@@ -6,6 +6,7 @@ import 'package:ticket_booking_client/WelcomeScreen.dart';
 import 'package:ticket_booking_client/class/DarkThemeProvider.dart';
 import 'package:ticket_booking_client/screens/auth/register_screen.dart';
 import 'package:ticket_booking_client/screens/payment/make_payment.dart';
+import 'package:ticket_booking_client/screens/qrcode/qrcode.dart';
 
 class CustomDrawer extends StatefulWidget {
   final String id;
@@ -24,6 +25,8 @@ class _CustomDrawerState extends State<CustomDrawer> {
       } else {
         Navigator.popAndPushNamed(context, changeId);
       }
+    } else {
+      Navigator.pop(context);
     }
   }
 
@@ -80,6 +83,13 @@ class _CustomDrawerState extends State<CustomDrawer> {
                       ),
                       color: Colors.white,
                     ),
+                  ),
+                  DrawerListTile(
+                    icon: Icons.card_travel,
+                    onPress: () {
+                      makeRoutes(context, QrCode.id);
+                    },
+                    title: "my qr",
                   ),
                   DrawerListTile(
                     icon: Icons.add_box,
