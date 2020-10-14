@@ -121,9 +121,7 @@ class _TravelHistoryState extends State<TravelHistory> {
                             style: TextStyle(fontSize: 18),
                           ),
                           DottedLine(
-                            dashColor: themeChange.darkTheme
-                                ? Colors.red
-                                : Colors.white,
+                            dashColor: Colors.white,
                             dashGapLength: 5,
                             lineThickness: 1,
                           ),
