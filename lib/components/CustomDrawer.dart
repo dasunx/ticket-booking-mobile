@@ -1,10 +1,15 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ticket_booking_client/HomeScreen.dart';
 import 'package:ticket_booking_client/WelcomeScreen.dart';
 import 'package:ticket_booking_client/class/DarkThemeProvider.dart';
-import 'package:ticket_booking_client/screens/auth/register_screen.dart';
+import 'package:ticket_booking_client/class/SharedPref.dart';
+import 'package:ticket_booking_client/class/User.dart';
+import 'package:ticket_booking_client/screens/auth/login_screen.dart';
+
 import 'package:ticket_booking_client/screens/payment/make_payment.dart';
 import 'package:ticket_booking_client/screens/payment/payment_history.dart';
 import 'package:ticket_booking_client/screens/qrcode/qrcode.dart';
@@ -19,6 +24,26 @@ class CustomDrawer extends StatefulWidget {
 }
 
 class _CustomDrawerState extends State<CustomDrawer> {
+  SharedPref sharedPref = SharedPref();
+  User user;
+
+  loadUser() async {
+    var userJson = await sharedPref.read("user");
+    if (userJson == null) {
+      Navigator.pushReplacementNamed(context, LoginScreen.id);
+    } else {
+      setState(() {
+        user = User.userFromJson(jsonDecode(userJson));
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    loadUser();
+    super.initState();
+  }
+
   void makeRoutes(BuildContext context, String changeId) {
     Navigator.pop(context);
     if (widget.id != changeId) {
@@ -53,7 +78,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                       bottom: 20.0,
                     ),
                     accountName: Text(
-                      "Dasun",
+                      user != null ? user.name : '',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 18.0,
@@ -61,7 +86,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                       ),
                     ),
                     accountEmail: Text(
-                      "mwdasun@gmail.com",
+                      user != null ? user.email : '',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 16.0,
@@ -70,7 +95,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                     currentAccountPicture: CircleAvatar(
                       backgroundColor: Colors.white,
                       child: Text(
-                        "D",
+                        user != null ? user.name[0] : 'D',
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 40.0,
@@ -89,7 +114,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   DrawerListTile(
                     icon: Icons.card_travel,
                     onPress: () {
-                      makeRoutes(context, QrCode.id);
+                      Navigator.pushNamed(context, QrCode.id, arguments: user);
                     },
                     title: "my qr",
                   ),
@@ -116,9 +141,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   ),
                   DrawerListTile(
                     icon: Icons.person,
-                    onPress: () {
-                      makeRoutes(context, RegisterScreen.id);
-                    },
+                    onPress: () {},
                     title: "profile",
                   ),
                 ],
@@ -147,6 +170,20 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 ),
                 onTap: () {
                   themeChange.darkTheme = !themeChange.darkTheme;
+                },
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: ListTile(
+                leading: Icon(
+                  Icons.exit_to_app,
+                  size: 30.0,
+                ),
+                title: Text("Sign Out"),
+                onTap: () async {
+                  await sharedPref.remove("user");
+                  Navigator.pushReplacementNamed(context, LoginScreen.id);
                 },
               ),
             )

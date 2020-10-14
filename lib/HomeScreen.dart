@@ -1,18 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ticket_booking_client/class/DarkThemeProvider.dart';
+import 'package:ticket_booking_client/class/SharedPref.dart';
+import 'package:ticket_booking_client/class/User.dart';
 import 'package:ticket_booking_client/components/CustomDrawer.dart';
 import 'package:ticket_booking_client/components/slider.dart';
 import 'package:ticket_booking_client/screens/qrcode/qrcode.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String id = "Home_screen";
+  final User user;
+
+  const HomeScreen({Key key, this.user}) : super(key: key);
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
   PanelController _pc = new PanelController();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final themeChange = Provider.of<DarkThemeProvider>(context);
@@ -30,7 +41,9 @@ class _HomeScreenState extends State<HomeScreen> {
         minHeight: 60,
         controller: _pc,
         panel: Center(
-          child: QrCode(),
+          child: QrCode(
+            user: widget.user,
+          ),
         ),
         collapsed: Container(
           decoration: BoxDecoration(
@@ -65,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
         body: GestureDetector(
           onTap: () => _pc.close(),
           child: Container(
-            child: Text('Dasun'),
+            child: Text(widget.user.name),
           ),
         ),
         borderRadius: radius,

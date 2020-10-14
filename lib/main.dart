@@ -3,9 +3,11 @@ import 'package:provider/provider.dart';
 import 'package:ticket_booking_client/HomeScreen.dart';
 import 'package:ticket_booking_client/WelcomeScreen.dart';
 import 'package:ticket_booking_client/class/DarkThemeProvider.dart';
+import 'package:ticket_booking_client/class/Routing.dart';
 import 'package:ticket_booking_client/class/Styles.dart';
 import 'package:ticket_booking_client/screens/auth/login_screen.dart';
 import 'package:ticket_booking_client/screens/auth/register_screen.dart';
+import 'package:ticket_booking_client/screens/loading/LoadingScreen.dart';
 import 'package:ticket_booking_client/screens/payment/make_payment.dart';
 import 'package:ticket_booking_client/screens/payment/payment_history.dart';
 import 'package:ticket_booking_client/screens/qrcode/qrcode.dart';
@@ -46,17 +48,8 @@ class _MyAppState extends State<MyApp> {
             debugShowCheckedModeBanner: false,
             title: 'Flutter Widgets',
             theme: Styles.themeData(themeChangeProvider.darkTheme, context),
-            initialRoute: HomeScreen.id,
-            routes: {
-              WelcomeScreen.id: (context) => WelcomeScreen(),
-              RegisterScreen.id: (context) => RegisterScreen(),
-              LoginScreen.id: (context) => LoginScreen(),
-              HomeScreen.id: (context) => HomeScreen(),
-              MakePayment.id: (context) => MakePayment(),
-              PaymentHistory.id: (context) => PaymentHistory(),
-              QrCode.id: (context) => QrCode(),
-              TravelHistory.id: (context) => TravelHistory()
-            },
+            onGenerateRoute: Routing.generateRoute,
+            initialRoute: LoadingScreen.id,
           );
         },
       ),
