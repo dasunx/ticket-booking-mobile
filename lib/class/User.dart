@@ -1,5 +1,6 @@
 import 'package:ticket_booking_client/class/Journey.dart';
 import 'package:ticket_booking_client/class/Payment.dart';
+import 'package:ticket_booking_client/class/UserDetails.dart';
 
 class User {
   String userId;
@@ -7,6 +8,7 @@ class User {
   String role;
   String email;
   String token;
+  double balance;
 
   User(this.userId, this.email, this.name, this.role, this.token);
   User.w();
@@ -15,7 +17,8 @@ class User {
         'email': email,
         'name': name,
         'role': role,
-        'token': token
+        'token': token,
+        'balance': balance
       };
 
   User.userFromJson(Map<String, dynamic> json)
@@ -23,5 +26,6 @@ class User {
         email = json['user']['email'],
         name = json['user']['name'],
         role = json['user']['role'],
-        token = json['token'];
+        token = json['token'],
+        balance = double.parse(json['user']['balance'].toString());
 }

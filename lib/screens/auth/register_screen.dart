@@ -42,7 +42,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool _conPassword = false;
   bool _nic = false;
   bool _passportId = false;
-  String url = 'http://192.168.8.103:8000/api/auth/signup';
+  String url = 'https://urbanticket.herokuapp.com/api/auth/signup';
   loadSharedPrefs() async {
     try {
       User user = User.userFromJson(jsonDecode(await sharedPref.read("user")));

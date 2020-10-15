@@ -5,12 +5,17 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:ticket_booking_client/class/DarkThemeProvider.dart';
 import 'package:ticket_booking_client/class/Journey.dart';
+import 'package:ticket_booking_client/class/User.dart';
+import 'package:ticket_booking_client/class/UserDetails.dart';
 import 'package:ticket_booking_client/components/DottedLine.dart';
 import 'package:ticket_booking_client/components/TicketClipper.dart';
 import 'package:ticket_booking_client/components/side_cut_clipper.dart';
 
 class TravelHistory extends StatefulWidget {
   static const String id = 'travel_history';
+  final UserDetails user;
+
+  const TravelHistory({Key key, this.user}) : super(key: key);
   @override
   _TravelHistoryState createState() => _TravelHistoryState();
 }

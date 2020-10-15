@@ -8,6 +8,7 @@ import 'package:ticket_booking_client/WelcomeScreen.dart';
 import 'package:ticket_booking_client/class/DarkThemeProvider.dart';
 import 'package:ticket_booking_client/class/SharedPref.dart';
 import 'package:ticket_booking_client/class/User.dart';
+import 'package:ticket_booking_client/class/UserDetails.dart';
 import 'package:ticket_booking_client/screens/auth/login_screen.dart';
 
 import 'package:ticket_booking_client/screens/payment/make_payment.dart';
@@ -17,8 +18,11 @@ import 'package:ticket_booking_client/screens/travel/travel_history.dart';
 
 class CustomDrawer extends StatefulWidget {
   final String id;
+  final User user;
+  final UserDetails userDetails;
 
-  const CustomDrawer({Key key, this.id}) : super(key: key);
+  const CustomDrawer({Key key, this.id, this.user, this.userDetails})
+      : super(key: key);
   @override
   _CustomDrawerState createState() => _CustomDrawerState();
 }
@@ -40,7 +44,8 @@ class _CustomDrawerState extends State<CustomDrawer> {
 
   @override
   void initState() {
-    loadUser();
+    user = widget.user;
+    //loadUser();
     super.initState();
   }
 
@@ -121,21 +126,24 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   DrawerListTile(
                     icon: Icons.add_box,
                     onPress: () {
-                      makeRoutes(context, MakePayment.id);
+                      Navigator.pushNamed(context, MakePayment.id,
+                          arguments: user);
                     },
                     title: "Top up",
                   ),
                   DrawerListTile(
                     icon: Icons.directions_bus,
                     onPress: () {
-                      makeRoutes(context, TravelHistory.id);
+                      Navigator.pushNamed(context, TravelHistory.id,
+                          arguments: widget.userDetails);
                     },
                     title: "Travel History",
                   ),
                   DrawerListTile(
                     icon: Icons.history,
                     onPress: () {
-                      makeRoutes(context, PaymentHistory.id);
+                      Navigator.pushNamed(context, PaymentHistory.id,
+                          arguments: user);
                     },
                     title: "Payment History",
                   ),
@@ -183,7 +191,11 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 title: Text("Sign Out"),
                 onTap: () async {
                   await sharedPref.remove("user");
-                  Navigator.pushReplacementNamed(context, LoginScreen.id);
+                  Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    LoginScreen.id,
+                    (Route<dynamic> route) => false,
+                  );
                 },
               ),
             )

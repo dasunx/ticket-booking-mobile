@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -6,11 +7,18 @@ import 'package:payhere_flutter/payhere_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:ticket_booking_client/HomeScreen.dart';
 import 'package:ticket_booking_client/class/DarkThemeProvider.dart';
+import 'package:ticket_booking_client/class/User.dart';
 import 'package:ticket_booking_client/components/AlertDialog.dart';
-import 'package:ticket_booking_client/components/CustomDrawer.dart';
+import 'package:http/http.dart' as http;
+import 'package:ticket_booking_client/screens/payment/payment_history.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MakePayment extends StatefulWidget {
   static const String id = 'MakePayment';
+  final User user;
+
+  const MakePayment({Key key, this.user}) : super(key: key);
+
   @override
   _MakePaymentState createState() => _MakePaymentState();
 }
@@ -19,6 +27,7 @@ class _MakePaymentState extends State<MakePayment> {
   FocusNode fnMobile = new FocusNode();
   FocusNode fnPass = new FocusNode();
   FocusNode fnAmount = new FocusNode();
+  String url = 'https://urbanticket.herokuapp.com/api/payment/add-payment';
 
   InitRequest req = InitRequest();
   PHConfigs configs = PHConfigs();
@@ -35,22 +44,18 @@ class _MakePaymentState extends State<MakePayment> {
         "4ZJ4OZbNiPx4p73LBLJ9wU8QiQhDHyrbO4TohGgYNdTR"); // Your Merchant secret (Add your app at Settings > Domains & Credentials, to get this))
     req.setCurrency("LKR"); // Currency code LKR/USD/GBP/EUR/AUD
     req.setAmount(1000.00); // Final Amount to be charged
-    req.setOrderId("230000123"); // Unique Reference ID
-    req.setItemsDescription("Door bell wireless"); // Item description title
+    req.setOrderId(
+        "payment" + DateTime.now().toIso8601String()); // Unique Reference ID
+    req.setItemsDescription("top up payment"); // Item description title
     req.setCustom1("This is the custom message 1");
     req.setCustom2("This is the custom message 2");
-    req.getCustomer().setFirstName("Saman");
-    req.getCustomer().setLastName("Perera");
-    req.getCustomer().setEmail("samanp@gmail.com");
+    req.getCustomer().setFirstName("Mr/Mrs");
+    req.getCustomer().setLastName(widget.user.name);
+    req.getCustomer().setEmail(widget.user.email);
     req.getCustomer().setPhone("+94771234567");
     req.getCustomer().getAddress().setAddress("No.1, Galle Road");
     req.getCustomer().getAddress().setCity("Colombo");
     req.getCustomer().getAddress().setCountry("Sri Lanka");
-
-//Optional Params
-    req.getCustomer().getDeliveryAddress().setAddress("No.2, Kandy Road");
-    req.getCustomer().getDeliveryAddress().setCity("Kadawatha");
-    req.getCustomer().getDeliveryAddress().setCountry("Sri Lanka");
 
     req
         .getItems()
@@ -226,21 +231,67 @@ class _MakePaymentState extends State<MakePayment> {
                           PhResponse response =
                               await PayhereFlutter.oneTimePaymentSandbox(
                                   request: req);
-                          print("responseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+
                           print(response.toJson().toString());
                           if (response.toJson()['status'].toString() == "1") {
-                            showAlertDialog(
-                                context,
-                                "Payment Successful",
-                                response.toJson()['data']['message'].toString(),
-                                "Ok",
-                                "view payments", () {
-                              Navigator.pop(context);
-                            }, () {
-                              Navigator.pop(context);
-                              Navigator.pop(context);
-                              Navigator.popAndPushNamed(context, HomeScreen.id);
-                            });
+                            final http.Response httpResponse =
+                                await http.post(url,
+                                    headers: <String, String>{
+                                      'Content-Type': 'application/json',
+                                    },
+                                    body: jsonEncode(<String, dynamic>{
+                                      "userId": widget.user.userId,
+                                      "type": "Mobile",
+                                      "amount": req.getAmount(),
+                                      "payhereId": response.toJson()['data']
+                                          ['paymentNo']
+                                    }));
+                            if (httpResponse.statusCode == 201) {
+                              showAlertDialog(
+                                  context,
+                                  "Payment Successful",
+                                  response
+                                      .toJson()['data']['message']
+                                      .toString(),
+                                  "home",
+                                  "view payments", () {
+                                Navigator.pop(context);
+                                Navigator.pushNamedAndRemoveUntil(
+                                    context,
+                                    HomeScreen.id,
+                                    (Route<dynamic> route) => false,
+                                    arguments: widget.user);
+                              }, () {
+                                Navigator.pop(context);
+                                Navigator.popAndPushNamed(
+                                  context,
+                                  PaymentHistory.id,
+                                  arguments: widget.user,
+                                );
+                              });
+                            } else {
+                              showAlertDialog(
+                                  context,
+                                  "Payment Successful but error while updating database",
+                                  "Please contact us via hot-line number to solve this issue",
+                                  "Make a call",
+                                  "Home", () {
+                                launch("tel://0715969888");
+                                Navigator.pop(context);
+                                Navigator.pushNamedAndRemoveUntil(
+                                    context,
+                                    HomeScreen.id,
+                                    (Route<dynamic> route) => false,
+                                    arguments: widget.user);
+                              }, () {
+                                Navigator.pop(context);
+                                Navigator.popAndPushNamed(
+                                  context,
+                                  PaymentHistory.id,
+                                  arguments: widget.user,
+                                );
+                              });
+                            }
                           } else {
                             showAlertDialog(
                                 context,

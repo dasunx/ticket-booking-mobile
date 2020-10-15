@@ -6,6 +6,8 @@ class Styles {
   static ThemeData themeData(bool isDarkTheme, BuildContext context) {
     return ThemeData(
         primarySwatch: Colors.red,
+        cardTheme: CardTheme(
+            color: isDarkTheme ? Color(0xff232931) : Color(0xfffb9d2d2)),
         primaryColor: isDarkTheme ? Color(0xFF303030) : Colors.white,
         backgroundColor: isDarkTheme ? Color(0xFF303030) : Color(0xffF1F5FB),
         indicatorColor: isDarkTheme ? Color(0xff0E1D36) : Color(0xffCBDCF8),
