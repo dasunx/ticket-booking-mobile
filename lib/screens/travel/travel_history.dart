@@ -5,12 +5,17 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:ticket_booking_client/class/DarkThemeProvider.dart';
 import 'package:ticket_booking_client/class/Journey.dart';
+import 'package:ticket_booking_client/class/User.dart';
+import 'package:ticket_booking_client/class/UserDetails.dart';
 import 'package:ticket_booking_client/components/DottedLine.dart';
 import 'package:ticket_booking_client/components/TicketClipper.dart';
 import 'package:ticket_booking_client/components/side_cut_clipper.dart';
 
 class TravelHistory extends StatefulWidget {
   static const String id = 'travel_history';
+  final UserDetails user;
+
+  const TravelHistory({Key key, this.user}) : super(key: key);
   @override
   _TravelHistoryState createState() => _TravelHistoryState();
 }
@@ -19,18 +24,19 @@ class _TravelHistoryState extends State<TravelHistory> {
   List<Journey> phItems = new List<Journey>();
   @override
   void initState() {
-    phItems.add(new Journey(
-        'Kaduwela',
-        'Kollupitiya',
-        DateTime.parse('2020-10-08 08:47:27.908'),
-        DateTime.parse('2020-10-08 09:30:27.908'),
-        65));
-    phItems.add(new Journey(
-        "Colombo-Fort",
-        "Gampaha",
-        DateTime.parse('2020-10-11 11:47:27.908'),
-        DateTime.parse('2020-10-11 13:20:27.908'),
-        85));
+    phItems = widget.user.travelHistory;
+    // phItems.add(new Journey(
+    //     'Kaduwela',
+    //     'Kollupitiya',
+    //     DateTime.parse('2020-10-08 08:47:27.908'),
+    //     DateTime.parse('2020-10-08 09:30:27.908'),
+    //     65));
+    // phItems.add(new Journey(
+    //     "Colombo-Fort",
+    //     "Gampaha",
+    //     DateTime.parse('2020-10-11 11:47:27.908'),
+    //     DateTime.parse('2020-10-11 13:20:27.908'),
+    //     85));
     super.initState();
   }
 

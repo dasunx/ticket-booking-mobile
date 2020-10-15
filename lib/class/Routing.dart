@@ -35,11 +35,20 @@ class Routing {
                   user: arguments,
                 ));
       case MakePayment.id:
-        return MaterialPageRoute(builder: (_) => MakePayment());
+        return MaterialPageRoute(
+            builder: (_) => MakePayment(
+                  user: arguments,
+                ));
       case PaymentHistory.id:
-        return MaterialPageRoute(builder: (_) => PaymentHistory());
+        return MaterialPageRoute(
+            builder: (_) => PaymentHistory(
+                  user: arguments,
+                ));
       case TravelHistory.id:
-        return MaterialPageRoute(builder: (_) => TravelHistory());
+        return MaterialPageRoute(
+            builder: (_) => TravelHistory(
+                  user: arguments,
+                ));
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

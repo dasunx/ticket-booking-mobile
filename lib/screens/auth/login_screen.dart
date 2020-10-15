@@ -24,7 +24,7 @@ class _LoginScreenState extends State<LoginScreen> {
   String emailError;
   bool _passWordValidator = false;
   String passwordError;
-  String url = 'http://192.168.8.103:8000/api/auth/login';
+  String url = 'https://urbanticket.herokuapp.com/api/auth/login';
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   Future<User> login(email, password, BuildContext context) async {
@@ -54,7 +54,8 @@ class _LoginScreenState extends State<LoginScreen> {
           sharedPref.save("user", response.body);
           Scaffold.of(context).showSnackBar(
               customSnackBar(context, "Sign in as ${newUser.name}"));
-          Navigator.pushReplacementNamed(context, HomeScreen.id,
+          Navigator.pushNamedAndRemoveUntil(
+              context, HomeScreen.id, (Route<dynamic> route) => false,
               arguments: newUser);
         } else {
           Scaffold.of(context).showSnackBar(customSnackBar(

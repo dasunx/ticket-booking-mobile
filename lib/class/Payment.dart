@@ -9,7 +9,7 @@ class Payment {
       {'payAmount': payAmount, 'date': date, 'type': type};
 
   Payment.fromJson(Map<String, dynamic> json)
-      : payAmount = json['payAmount'],
-        date = json['date'],
+      : payAmount = double.parse(json['amount'].toString()),
+        date = DateTime.parse(json['time']),
         type = json['type'];
 }
