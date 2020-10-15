@@ -119,6 +119,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   DrawerListTile(
                     icon: Icons.card_travel,
                     onPress: () {
+                      Navigator.pop(context);
                       Navigator.pushNamed(context, QrCode.id, arguments: user);
                     },
                     title: "my qr",
@@ -126,6 +127,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   DrawerListTile(
                     icon: Icons.add_box,
                     onPress: () {
+                      Navigator.pop(context);
                       Navigator.pushNamed(context, MakePayment.id,
                           arguments: user);
                     },
@@ -134,6 +136,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   DrawerListTile(
                     icon: Icons.directions_bus,
                     onPress: () {
+                      Navigator.pop(context);
                       Navigator.pushNamed(context, TravelHistory.id,
                           arguments: widget.userDetails);
                     },
@@ -142,15 +145,11 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   DrawerListTile(
                     icon: Icons.history,
                     onPress: () {
+                      Navigator.pop(context);
                       Navigator.pushNamed(context, PaymentHistory.id,
                           arguments: user);
                     },
                     title: "Payment History",
-                  ),
-                  DrawerListTile(
-                    icon: Icons.person,
-                    onPress: () {},
-                    title: "profile",
                   ),
                 ],
               ),

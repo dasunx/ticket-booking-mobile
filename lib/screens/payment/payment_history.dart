@@ -18,7 +18,7 @@ class PaymentHistory extends StatefulWidget {
 
 class _PaymentHistoryState extends State<PaymentHistory> {
   List<Payment> phItems = new List<Payment>();
-  String url = 'https://urbanticket.herokuapp.com/api/payment/by-user-id/';
+  String url = 'http://192.168.8.100:8000/api/payment/by-user-id/';
   bool isLoaded = false;
 
   loadPayment() async {
@@ -80,6 +80,7 @@ class _PaymentHistoryState extends State<PaymentHistory> {
                                     ),
                                     Spacer(),
                                     Chip(
+                                      backgroundColor: Colors.blue,
                                       label: Text(
                                         '${phItems[index].type.toString()}',
                                       ),

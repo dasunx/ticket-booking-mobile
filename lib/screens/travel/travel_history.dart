@@ -24,18 +24,19 @@ class _TravelHistoryState extends State<TravelHistory> {
   List<Journey> phItems = new List<Journey>();
   @override
   void initState() {
-    phItems.add(new Journey(
-        'Kaduwela',
-        'Kollupitiya',
-        DateTime.parse('2020-10-08 08:47:27.908'),
-        DateTime.parse('2020-10-08 09:30:27.908'),
-        65));
-    phItems.add(new Journey(
-        "Colombo-Fort",
-        "Gampaha",
-        DateTime.parse('2020-10-11 11:47:27.908'),
-        DateTime.parse('2020-10-11 13:20:27.908'),
-        85));
+    phItems = widget.user.travelHistory;
+    // phItems.add(new Journey(
+    //     'Kaduwela',
+    //     'Kollupitiya',
+    //     DateTime.parse('2020-10-08 08:47:27.908'),
+    //     DateTime.parse('2020-10-08 09:30:27.908'),
+    //     65));
+    // phItems.add(new Journey(
+    //     "Colombo-Fort",
+    //     "Gampaha",
+    //     DateTime.parse('2020-10-11 11:47:27.908'),
+    //     DateTime.parse('2020-10-11 13:20:27.908'),
+    //     85));
     super.initState();
   }
 

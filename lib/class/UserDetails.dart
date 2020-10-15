@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:ticket_booking_client/class/Journey.dart';
 import 'package:ticket_booking_client/class/Payment.dart';
 
@@ -26,8 +28,9 @@ Future<UserDetails> userDetailsFromJson(var json) async {
     onGoingJourney = null;
   }
   paymentHistory = paymentListFromJson(json["paymentHistory"]);
-  userDetails =
-      new UserDetails(balance, paymentHistory, ongoing, onGoingJourney, []);
+  travelHistory = journeyListFromJson(json['journeyHistory']);
+  userDetails = new UserDetails(
+      balance, paymentHistory, ongoing, onGoingJourney, travelHistory);
   return userDetails;
 }
 
@@ -44,7 +47,7 @@ List<Payment> paymentListFromJson(var json) {
 List<Journey> journeyListFromJson(var json) {
   List<Journey> journeyList = new List<Journey>();
   json.forEach((ele) {
-    Journey j = new Journey.fromJson(ele);
+    Journey j = new Journey.fromJsonFull(ele);
     journeyList.add(j);
   });
   return journeyList;

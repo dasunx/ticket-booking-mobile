@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -34,15 +35,16 @@ class _HomeScreenState extends State<HomeScreen> {
   String subGreeting = 'Have a nice day';
   bool isLoaded = false;
   DateTime time = DateTime.now();
+  Timer timer;
   loadUserDetails() async {
     final http.Response response =
         await http.get(url + widget.user.userId, headers: <String, String>{
       'Content-Type': 'application/json',
     });
     if (response.statusCode == 200) {
-      //print(jsonDecode(response.body));
+      // print(jsonDecode(response.body)['journeyHistory']);
       userDetails = await userDetailsFromJson(jsonDecode(response.body));
-      //print(userDetails.paymentHistory.length);
+      print(userDetails.travelHistory.length);
     }
     setState(() {
       isLoaded = true;
@@ -56,36 +58,43 @@ class _HomeScreenState extends State<HomeScreen> {
         imageName = "morning.png";
         color1 = Color(0xffa8e180);
         color2 = Color(0xff96efef);
+        subGreeting = "Hope you have an amazing day";
       });
     } else if (time.hour >= 11 && time.hour <= 14) {
       setState(() {
         color2 = Color(0xff73cc8d);
         color1 = Color(0xff88e1f5);
         imageName = 'noon.png';
+        subGreeting = "Have a safe and smooth journey";
       });
     } else if (time.hour >= 15 && time.hour <= 18) {
       setState(() {
         color2 = Color(0xff73cc8d);
         color1 = Color(0xff88e1f5);
         imageName = "evening.png";
+        subGreeting = "Wishing you a safe journey!";
       });
     } else if (time.hour >= 19 && time.hour <= 20) {
       setState(() {
         color1 = Color(0xffa6a3dd);
         color2 = Color(0xff3e709f);
         imageName = 'earlienight.png';
+        subGreeting = "Busy Streets, be safe!";
       });
-    } else if (time.hour >= 21 && time.hour <= 4) {
+    } else if ((time.hour >= 21 && time.hour <= 24) ||
+        (time.hour >= 0 && time.hour <= 2)) {
       setState(() {
         color2 = Color(0xff182f4a);
         color1 = Color(0xff345c75);
         imageName = 'midnight.png';
+        subGreeting = "It's midnight, Safe travel!";
       });
     } else {
       setState(() {
         color2 = Color(0xff8cabdd);
         color1 = Color(0xff345c75);
         imageName = 'earliemorning.png';
+        subGreeting = "It's new day! start fresh";
       });
     }
     if (time.hour > 12) {
@@ -103,6 +112,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     loadUserDetails();
+    // timer =
+    //     Timer.periodic(Duration(seconds: 5), (Timer t) => loadUserDetails());
     setMessages();
     super.initState();
   }
@@ -124,8 +135,14 @@ class _HomeScreenState extends State<HomeScreen> {
         onPanelOpened: () async {
           await loadUserDetails();
         },
+        // onPanelSlide: (t) async {
+        //   await loadUserDetails();
+        // },
+        onPanelClosed: () async {
+          await loadUserDetails();
+        },
         maxHeight: (height - 200),
-        minHeight: 60,
+        minHeight: 100,
         controller: _pc,
         panel: Center(
           child: QrCode(
@@ -203,17 +220,39 @@ class _HomeScreenState extends State<HomeScreen> {
                               Text(
                                 "$greetingMessage,",
                                 style: TextStyle(
-                                    fontSize: 28, fontWeight: FontWeight.bold),
+                                    fontSize: 28,
+                                    fontWeight: FontWeight.bold,
+                                    color: imageName == "midnight.png"
+                                        ? Colors.white
+                                        : themeChange.darkTheme
+                                            ? Colors.white
+                                            : Colors.black),
                               ),
                               Text(
                                 "${widget.user.name.split(" ")[0]}",
                                 style: TextStyle(
-                                  fontSize: 28,
-                                ),
+                                    fontSize: 28,
+                                    color: imageName == "midnight.png"
+                                        ? Colors.white
+                                        : themeChange.darkTheme
+                                            ? Colors.white
+                                            : Colors.black),
                               ),
-                              Text(
-                                subGreeting,
-                                style: TextStyle(fontSize: 24),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              Flexible(
+                                child: Text(
+                                  subGreeting,
+                                  style: TextStyle(
+                                      fontSize: 24,
+                                      color: imageName == "midnight.png"
+                                          ? Colors.white
+                                          : themeChange.darkTheme
+                                              ? Colors.white
+                                              : Colors.black),
+                                  textAlign: TextAlign.center,
+                                ),
                               )
                             ],
                           ),
@@ -241,7 +280,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       },
                       child: Container(
                         width: width / 2,
-                        height: height / 3.6,
+                        height: height / 4,
                         child: Card(
                           child: Padding(
                             padding: const EdgeInsets.only(top: 10.0),
@@ -282,13 +321,22 @@ class _HomeScreenState extends State<HomeScreen> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Icon(
-                                          Icons.add,
-                                          size: 40,
-                                        ),
+                                        Icon(Icons.add,
+                                            size: 40,
+                                            color: imageName == "midnight.png"
+                                                ? Colors.white
+                                                : themeChange.darkTheme
+                                                    ? Colors.white
+                                                    : Colors.black),
                                         Text(
                                           " TOP UP",
-                                          style: TextStyle(fontSize: 20),
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              color: imageName == "midnight.png"
+                                                  ? Colors.white
+                                                  : themeChange.darkTheme
+                                                      ? Colors.white
+                                                      : Colors.black),
                                         ),
                                       ],
                                     ),
@@ -302,7 +350,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     Container(
                       width: width / 2,
-                      height: height / 3.6,
+                      height: height / 4,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
@@ -327,7 +375,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Container(
-                                        height: height / 5,
+                                        height: height / 7,
                                         decoration: BoxDecoration(
                                           image: DecorationImage(
                                             image:
@@ -356,91 +404,100 @@ class _HomeScreenState extends State<HomeScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Container(
-                      width: width / 2,
-                      height: height / 3.6,
-                      child: Card(
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                              top: 10.0, left: 10, right: 10),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Expanded(
-                                flex: 1,
-                                child: Text(
-                                  isLoaded
-                                      ? userDetails.onGoingJourney != null
-                                          ? 'Current Journey'
-                                          : 'No current journey'
-                                      : 'loading',
-                                  style: TextStyle(fontSize: 18),
+                    GestureDetector(
+                      onTap: () async {
+                        await loadUserDetails();
+                      },
+                      child: Container(
+                        width: width / 2,
+                        height: height / 4,
+                        child: Card(
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                top: 10.0, left: 10, right: 10),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Expanded(
+                                  flex: 1,
+                                  child: Text(
+                                    isLoaded
+                                        ? userDetails.onGoingJourney != null
+                                            ? 'Current Journey'
+                                            : 'No current journey'
+                                        : 'loading',
+                                    style: TextStyle(fontSize: 18),
+                                  ),
                                 ),
-                              ),
-                              Expanded(
-                                flex: 3,
-                                child: isLoaded
-                                    ? userDetails.onGoingJourney != null
-                                        ? Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                "From",
-                                                style: TextStyle(fontSize: 18),
-                                              ),
-                                              Text(
-                                                "${userDetails.onGoingJourney.startingPlace.toUpperCase()}",
-                                                style: TextStyle(fontSize: 24),
-                                              ),
-                                              SizedBox(
-                                                height: 5,
-                                              ),
-                                              Text(
-                                                "Via",
-                                                style: TextStyle(fontSize: 18),
-                                              ),
-                                              Text(
-                                                "${userDetails.onGoingJourney.busId.substring(0, 2)}-${userDetails.onGoingJourney.busId.substring(2, 6)}",
-                                                style: TextStyle(fontSize: 24),
-                                              ),
-                                            ],
-                                          )
-                                        : Column(
-                                            children: [
-                                              Container(
-                                                  height: height / 6.7,
-                                                  decoration: BoxDecoration(
-                                                    image: DecorationImage(
-                                                      image: AssetImage(
-                                                          'images/no-journey.png'),
-                                                      fit: BoxFit.contain,
-                                                      alignment:
-                                                          Alignment.center,
-                                                    ),
-                                                  )),
-                                            ],
-                                          )
-                                    : Text(''),
-                              ),
-                              Expanded(
-                                child: isLoaded
-                                    ? userDetails.onGoingJourney != null
-                                        ? getTimeDifferent(userDetails
-                                            .onGoingJourney.startTime)
-                                        : Text('')
-                                    : CircularProgressIndicator(),
-                              )
-                            ],
+                                Expanded(
+                                  flex: 3,
+                                  child: isLoaded
+                                      ? userDetails.onGoingJourney != null
+                                          ? Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  "From",
+                                                  style:
+                                                      TextStyle(fontSize: 18),
+                                                ),
+                                                Text(
+                                                  "${userDetails.onGoingJourney.startingPlace.toUpperCase()}",
+                                                  style:
+                                                      TextStyle(fontSize: 22),
+                                                ),
+                                                SizedBox(
+                                                  height: 5,
+                                                ),
+                                                Text(
+                                                  "Via",
+                                                  style:
+                                                      TextStyle(fontSize: 18),
+                                                ),
+                                                Text(
+                                                  "${userDetails.onGoingJourney.busId.substring(0, 2)}-${userDetails.onGoingJourney.busId.substring(2, 6)}",
+                                                  style:
+                                                      TextStyle(fontSize: 24),
+                                                ),
+                                              ],
+                                            )
+                                          : Column(
+                                              children: [
+                                                Container(
+                                                    height: height / 8,
+                                                    decoration: BoxDecoration(
+                                                      image: DecorationImage(
+                                                        image: AssetImage(
+                                                            'images/no-journey.png'),
+                                                        fit: BoxFit.contain,
+                                                        alignment:
+                                                            Alignment.center,
+                                                      ),
+                                                    )),
+                                              ],
+                                            )
+                                      : Text(''),
+                                ),
+                                Expanded(
+                                  child: isLoaded
+                                      ? userDetails.onGoingJourney != null
+                                          ? getTimeDifferent(userDetails
+                                              .onGoingJourney.startTime)
+                                          : Text('')
+                                      : CircularProgressIndicator(),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),
                     ),
                     Container(
                       width: width / 2,
-                      height: height / 3.6,
+                      height: height / 4,
                       child: GestureDetector(
                         onTap: () {
                           Navigator.pushNamed(context, TravelHistory.id,
@@ -458,7 +515,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Container(
-                                  height: height / 5,
+                                  height: height / 7,
                                   width: width,
                                   decoration: BoxDecoration(
                                     image: DecorationImage(

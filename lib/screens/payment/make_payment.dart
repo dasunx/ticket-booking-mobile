@@ -114,7 +114,7 @@ class _MakePaymentState extends State<MakePayment> {
             children: <Widget>[
               AnimatedContainer(
                 alignment: Alignment.center,
-                height: keyboardH > 0 ? 100 : 380,
+                height: keyboardH > 0 ? 100 : 450,
                 duration: Duration(milliseconds: 600),
                 curve: Curves.fastOutSlowIn,
                 child: Container(
@@ -176,27 +176,27 @@ class _MakePaymentState extends State<MakePayment> {
                       SizedBox(
                         height: 10,
                       ),
-                      Container(
-                        child: TextField(
-                          focusNode: fnPass,
-                          obscureText: true,
-                          decoration: InputDecoration(
-                              prefixIcon: Icon(Icons.remove_red_eye),
-                              border: OutlineInputBorder(),
-                              labelText: "Password",
-
-                              // errorText:
-                              // emailValidation ? "Add Valid Email" : null,
-                              errorBorder: OutlineInputBorder().copyWith(
-                                  borderSide: BorderSide(color: Colors.red)),
-                              hintStyle: TextStyle(
-                                color: Colors.grey[400],
-                              )),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
+                      // Container(
+                      //   child: TextField(
+                      //     focusNode: fnPass,
+                      //     obscureText: true,
+                      //     decoration: InputDecoration(
+                      //         prefixIcon: Icon(Icons.remove_red_eye),
+                      //         border: OutlineInputBorder(),
+                      //         labelText: "Password",
+                      //
+                      //         // errorText:
+                      //         // emailValidation ? "Add Valid Email" : null,
+                      //         errorBorder: OutlineInputBorder().copyWith(
+                      //             borderSide: BorderSide(color: Colors.red)),
+                      //         hintStyle: TextStyle(
+                      //           color: Colors.grey[400],
+                      //         )),
+                      //   ),
+                      // ),
+                      // SizedBox(
+                      //   height: 10,
+                      // ),
                       Container(
                         child: TextField(
                           focusNode: fnAmount,

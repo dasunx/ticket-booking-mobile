@@ -15,6 +15,14 @@ class Journey {
         cost = double.parse(json['cost'].toString()),
         busId = json['busId']['regNo'];
 
+  Journey.fromJsonFull(Map<String, dynamic> json)
+      : startingPlace = json['startPlace'],
+        startTime = DateTime.parse(json['startTime']).toLocal(),
+        endingPlace = json['endPlace'],
+        endTime = DateTime.parse(json['endTime']).toLocal(),
+        cost = double.parse(json['cost'].toString()),
+        busId = json['busId']['regNo'];
+
   Journey.onGoingJourneyFromJson(Map<String, dynamic> json)
       : startingPlace = json['startingPlace'],
         startTime = json['startTime'];
