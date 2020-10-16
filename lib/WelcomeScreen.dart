@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ticket_booking_client/HomeScreen.dart';
-import 'package:ticket_booking_client/class/SharedPref.dart';
-import 'package:ticket_booking_client/class/User.dart';
-import 'package:ticket_booking_client/components/CustomDrawer.dart';
 import 'package:ticket_booking_client/screens/auth/login_screen.dart';
 import 'package:ticket_booking_client/screens/auth/register_screen.dart';
 
@@ -29,11 +25,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             stops: [0.0, 1.0],
             tileMode: TileMode.clamp,
           ),
-          // image: DecorationImage(
-          //   image: NetworkImage(
-          //       'https://images.hdqwalls.com/download/subway-long-exposure-4k-k4-1242x2688.jpg'),
-          //   fit: BoxFit.fill,
-          // ),
+          
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
