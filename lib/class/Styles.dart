@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 class Styles {
   static ThemeData themeData(bool isDarkTheme, BuildContext context) {
     return ThemeData(
+        fontFamily: "OpenSans",
         primarySwatch: Colors.red,
         cardTheme: CardTheme(
             color: isDarkTheme ? Color(0xff232931) : Color(0xfffb9d2d2)),

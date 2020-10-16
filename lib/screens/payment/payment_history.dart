@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:ticket_booking_client/class/Payment.dart';
 import 'package:ticket_booking_client/class/User.dart';
 import 'package:http/http.dart' as http;
+import 'package:ticket_booking_client/screens/payment/make_payment.dart';
 
 class PaymentHistory extends StatefulWidget {
   static const String id = "payment_history";
@@ -18,7 +19,7 @@ class PaymentHistory extends StatefulWidget {
 
 class _PaymentHistoryState extends State<PaymentHistory> {
   List<Payment> phItems = new List<Payment>();
-  String url = 'http://192.168.8.100:8000/api/payment/by-user-id/';
+  String url = 'https://urbanticket.herokuapp.com/api/payment/by-user-id/';
   bool isLoaded = false;
 
   loadPayment() async {
@@ -104,13 +105,55 @@ class _PaymentHistoryState extends State<PaymentHistory> {
                       );
                     })
                 : Container(
-                    child: Center(
-                      child: Text(
-                        'No payment history',
-                        style: TextStyle(color: Colors.white),
+                    child: Column(
+                    children: [
+                      Expanded(
+                        flex: 5,
+                        child: Container(
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                            image: AssetImage('images/no-data.png'),
+                          )),
+                        ),
                       ),
-                    ),
-                  )
+                      Expanded(
+                        flex: 1,
+                        child: Text(
+                          "No Payments",
+                          style: TextStyle(
+                              fontSize: 28,
+                              fontWeight: FontWeight.w700,
+                              fontStyle: FontStyle.italic),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.popAndPushNamed(context, MakePayment.id,
+                                arguments: widget.user);
+                          },
+                          child: Container(
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                                border:
+                                    Border.all(color: Colors.blue, width: 2),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(15))),
+                            width: double.infinity,
+                            margin: EdgeInsets.symmetric(
+                                horizontal: 30, vertical: 20),
+                            padding: EdgeInsets.all(10),
+                            child: Text(
+                              "Top Up ",
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ))
             : Center(child: CircularProgressIndicator()),
       ),
     );

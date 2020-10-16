@@ -45,124 +45,150 @@ class _TravelHistoryState extends State<TravelHistory> {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text("Payment history"),
+        title: Text("Travel history"),
       ),
       body: Container(
-        child: ListView.builder(
-            itemCount: phItems.length,
-            itemBuilder: (context, index) {
-              int time;
-              int sthour = int.parse(
-                  DateFormat.H().format(phItems[index].startTime).toString());
-              int endhour = int.parse(
-                  DateFormat.H().format(phItems[index].endTime).toString());
-              int stMin = int.parse(
-                  DateFormat.m().format(phItems[index].startTime).toString());
-              int endMin = int.parse(
-                  DateFormat.m().format(phItems[index].endTime).toString());
-              time = ((endhour * 60) + endMin) - ((sthour * 60) + stMin);
+        child: phItems.length > 0
+            ? ListView.builder(
+                itemCount: phItems.length,
+                itemBuilder: (context, index) {
+                  int time;
+                  int sthour = int.parse(DateFormat.H()
+                      .format(phItems[index].startTime)
+                      .toString());
+                  int endhour = int.parse(
+                      DateFormat.H().format(phItems[index].endTime).toString());
+                  int stMin = int.parse(DateFormat.m()
+                      .format(phItems[index].startTime)
+                      .toString());
+                  int endMin = int.parse(
+                      DateFormat.m().format(phItems[index].endTime).toString());
+                  time = ((endhour * 60) + endMin) - ((sthour * 60) + stMin);
 
-              return ClipPath(
-                clipper: TicketClipper(20),
-                child: Container(
-                  height: 200,
-                  margin: EdgeInsets.only(right: 6, top: 10, left: 6),
-                  child: Card(
-                    color: themeChange.darkTheme
-                        ? Color(0XFF1E453E)
-                        : Color(0xffCBDCF8),
-                    elevation: 3,
-                    child: Padding(
-                      padding:
-                          const EdgeInsets.only(top: 12.0, left: 12, right: 12),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Row(
+                  return ClipPath(
+                    clipper: TicketClipper(20),
+                    child: Container(
+                      height: 200,
+                      margin: EdgeInsets.only(right: 6, top: 10, left: 6),
+                      child: Card(
+                        color: themeChange.darkTheme
+                            ? Color(0XFF1E453E)
+                            : Color(0xffCBDCF8),
+                        elevation: 3,
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              top: 12.0, left: 12, right: 12),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Text(
-                                '${phItems[index].startingPlace.toString()}',
-                                style: TextStyle(fontSize: 25),
+                              Row(
+                                children: [
+                                  Text(
+                                    '${phItems[index].startingPlace.toString()}',
+                                    style: TextStyle(fontSize: 25),
+                                  ),
+                                  Spacer(),
+                                  Transform.rotate(
+                                      angle: 90 * pi / 180,
+                                      child: Icon(
+                                        Icons.airplanemode_active,
+                                        color: Colors.red,
+                                      )),
+                                  Spacer(),
+                                  Text(
+                                    '${phItems[index].endingPlace.toString()}',
+                                    style: TextStyle(fontSize: 25),
+                                  ),
+                                ],
                               ),
-                              Spacer(),
-                              Transform.rotate(
-                                  angle: 90 * pi / 180,
-                                  child: Icon(
-                                    Icons.airplanemode_active,
-                                    color: Colors.red,
-                                  )),
-                              Spacer(),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 15.0),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      '${DateFormat().add_jm().format(phItems[index].startTime).toString()}',
+                                    ),
+                                    Spacer(),
+                                    Text(
+                                      '${DateFormat().add_jm().format(phItems[index].endTime).toString()}',
+                                    )
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
                               Text(
-                                '${phItems[index].endingPlace.toString()}',
-                                style: TextStyle(fontSize: 25),
+                                'LKR ${phItems[index].cost.toString()}',
+                                style: TextStyle(fontSize: 18),
+                              ),
+                              Text(
+                                (time ~/ 60).toInt() >= 1
+                                    ? '${((time ~/ 60).toInt()).toString()} h ${(time % 60).toString()} minutes trip'
+                                    : '${(time % 60).toString()} minutes trip',
+                                style: TextStyle(fontSize: 18),
+                              ),
+                              DottedLine(
+                                dashColor: Colors.white,
+                                dashGapLength: 5,
+                                lineThickness: 1,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 15.0),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      '${DateFormat().add_yMMMd().format(phItems[index].startTime).toString()}',
+                                      style: TextStyle(fontSize: 16),
+                                    ),
+                                    Spacer(),
+                                    Chip(
+                                      label: Text(
+                                        'Completed',
+                                        style: TextStyle(fontSize: 16),
+                                      ),
+                                      avatar: CircleAvatar(
+                                        backgroundColor: Colors.black,
+                                        child: Icon(
+                                          Icons.done,
+                                          color: Colors.green,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
                           ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 15.0),
-                            child: Row(
-                              children: [
-                                Text(
-                                  '${DateFormat().add_jm().format(phItems[index].startTime).toString()}',
-                                ),
-                                Spacer(),
-                                Text(
-                                  '${DateFormat().add_jm().format(phItems[index].endTime).toString()}',
-                                )
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 25,
-                          ),
-                          Text(
-                            'LKR ${phItems[index].cost.toString()}',
-                            style: TextStyle(fontSize: 18),
-                          ),
-                          Text(
-                            (time ~/ 60).toInt() >= 1
-                                ? '${((time ~/ 60).toInt()).toString()} h ${(time % 60).toString()} minutes trip'
-                                : '${(time % 60).toString()} minutes trip',
-                            style: TextStyle(fontSize: 18),
-                          ),
-                          DottedLine(
-                            dashColor: Colors.white,
-                            dashGapLength: 5,
-                            lineThickness: 1,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 15.0),
-                            child: Row(
-                              children: [
-                                Text(
-                                  '${DateFormat().add_yMMMd().format(phItems[index].startTime).toString()}',
-                                  style: TextStyle(fontSize: 16),
-                                ),
-                                Spacer(),
-                                Chip(
-                                  label: Text(
-                                    'Completed',
-                                    style: TextStyle(fontSize: 16),
-                                  ),
-                                  avatar: CircleAvatar(
-                                    backgroundColor: Colors.black,
-                                    child: Icon(
-                                      Icons.done,
-                                      color: Colors.green,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
                     ),
+                  );
+                })
+            : Container(
+                child: Column(
+                children: [
+                  Expanded(
+                    flex: 3,
+                    child: Container(
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                        image: AssetImage('images/no-data.png'),
+                      )),
+                    ),
                   ),
-                ),
-              );
-            }),
+                  Expanded(
+                      flex: 1,
+                      child: Text(
+                        "No Travel History",
+                        style: TextStyle(
+                            fontSize: 28,
+                            fontWeight: FontWeight.w700,
+                            fontStyle: FontStyle.italic),
+                      )),
+                ],
+              )),
       ),
     );
   }
