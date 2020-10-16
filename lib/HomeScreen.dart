@@ -179,6 +179,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
         ),
+
         body: GestureDetector(
           onTap: () => _pc.close(),
           child: Container(
