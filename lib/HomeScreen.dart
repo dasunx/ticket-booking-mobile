@@ -442,12 +442,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 Text(
                                                   "From",
                                                   style:
-                                                      TextStyle(fontSize: 18),
+                                                      TextStyle(fontSize: 16),
                                                 ),
                                                 Text(
                                                   "${userDetails.onGoingJourney.startingPlace.toUpperCase()}",
                                                   style:
-                                                      TextStyle(fontSize: 22),
+                                                      TextStyle(fontSize: 20),
                                                 ),
                                                 SizedBox(
                                                   height: 5,
@@ -455,12 +455,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 Text(
                                                   "Via",
                                                   style:
-                                                      TextStyle(fontSize: 18),
+                                                      TextStyle(fontSize: 16),
                                                 ),
                                                 Text(
                                                   "${userDetails.onGoingJourney.busId.substring(0, 2)}-${userDetails.onGoingJourney.busId.substring(2, 6)}",
                                                   style:
-                                                      TextStyle(fontSize: 24),
+                                                      TextStyle(fontSize: 22),
                                                 ),
                                               ],
                                             )

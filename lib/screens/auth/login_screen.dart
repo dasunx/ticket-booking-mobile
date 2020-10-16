@@ -136,7 +136,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       alignment: Alignment.center,
                       height: keyboardH > 0
                           ? 0
-                          : (MediaQuery.of(context).size.height - 340),
+                          : (MediaQuery.of(context).size.height / 5) * 3,
                       duration: Duration(milliseconds: 600),
                       curve: Curves.fastOutSlowIn,
                       child: Container(
@@ -175,144 +175,147 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         padding: EdgeInsets.only(
                             top: keyboardH > 0 ? 80 : 40, left: 30, right: 30),
-                        child: Column(
-                          children: [
-                            Container(
-                              child: Theme(
-                                data: ThemeData(),
-                                child: TextField(
-                                  onTap: () {
-                                    setState(() {
-                                      _emailValidator = false;
-                                    });
-                                  },
-                                  onChanged: (val) {
-                                    setState(() {
-                                      email = val;
-                                    });
-                                  },
-                                  decoration: InputDecoration(
-                                      errorText:
-                                          _emailValidator ? emailError : null,
-                                      prefixIcon: Icon(Icons.person),
-                                      enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: Colors.grey, width: 1)),
-                                      border: OutlineInputBorder(),
-                                      labelText: "Email",
-                                      hintStyle: TextStyle(
-                                        color: Colors.grey[400],
-                                      )),
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              Container(
+                                child: Theme(
+                                  data: ThemeData(),
+                                  child: TextField(
+                                    onTap: () {
+                                      setState(() {
+                                        _emailValidator = false;
+                                      });
+                                    },
+                                    onChanged: (val) {
+                                      setState(() {
+                                        email = val;
+                                      });
+                                    },
+                                    decoration: InputDecoration(
+                                        errorText:
+                                            _emailValidator ? emailError : null,
+                                        prefixIcon: Icon(Icons.person),
+                                        enabledBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: Colors.grey, width: 1)),
+                                        border: OutlineInputBorder(),
+                                        labelText: "Email",
+                                        hintStyle: TextStyle(
+                                          color: Colors.grey[400],
+                                        )),
+                                  ),
                                 ),
                               ),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Container(
-                              child: Theme(
-                                data: ThemeData(),
-                                child: TextField(
-                                  obscureText: true,
-                                  onTap: () {
-                                    setState(() {
-                                      _passWordValidator = false;
-                                    });
-                                  },
-                                  onChanged: (value) {
-                                    setState(() {
-                                      password = value;
-                                    });
-                                  },
-                                  decoration: InputDecoration(
-                                      errorText: _passWordValidator
-                                          ? passwordError
-                                          : null,
-                                      prefixIcon: Icon(Icons.remove_red_eye),
-                                      border: OutlineInputBorder(),
-                                      enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: Colors.grey, width: 1)),
-                                      labelText: "Password",
-                                      // errorText:
-                                      // emailValidation ? "Add Valid Email" : null,
-                                      errorBorder: OutlineInputBorder()
-                                          .copyWith(
-                                              borderSide: BorderSide(
-                                                  color: Colors.red)),
-                                      hintStyle: TextStyle(
-                                        color: Colors.grey[400],
-                                      )),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Container(
+                                child: Theme(
+                                  data: ThemeData(),
+                                  child: TextField(
+                                    obscureText: true,
+                                    onTap: () {
+                                      setState(() {
+                                        _passWordValidator = false;
+                                      });
+                                    },
+                                    onChanged: (value) {
+                                      setState(() {
+                                        password = value;
+                                      });
+                                    },
+                                    decoration: InputDecoration(
+                                        errorText: _passWordValidator
+                                            ? passwordError
+                                            : null,
+                                        prefixIcon: Icon(Icons.remove_red_eye),
+                                        border: OutlineInputBorder(),
+                                        enabledBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: Colors.grey, width: 1)),
+                                        labelText: "Password",
+                                        // errorText:
+                                        // emailValidation ? "Add Valid Email" : null,
+                                        errorBorder: OutlineInputBorder()
+                                            .copyWith(
+                                                borderSide: BorderSide(
+                                                    color: Colors.red)),
+                                        hintStyle: TextStyle(
+                                          color: Colors.grey[400],
+                                        )),
+                                  ),
                                 ),
                               ),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            FlatButton(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 30, vertical: 15),
-                              color: Color(0XFFFF7A2A),
-                              child: Text(
-                                "Login",
-                                style: TextStyle(color: Colors.white),
+                              SizedBox(
+                                height: 10,
                               ),
-                              onPressed: () async {
-                                if (email == null) {
-                                  setState(() {
-                                    _emailValidator = true;
-                                    emailError = "Email cannot be empty";
-                                  });
-                                } else if (password == null) {
-                                  setState(() {
-                                    _passWordValidator = true;
-                                    passwordError = "Password cannot be empty";
-                                  });
-                                } else {
-                                  setState(() {
-                                    isLoading = true;
-                                  });
-                                  await login(email, password, context);
-                                }
-                              },
-                            ),
-                            FlatButton(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 34, vertical: 8),
-                              color: Colors.blue,
-                              child: Text(
-                                "create Local account",
-                                style: TextStyle(color: Colors.white),
+                              FlatButton(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 30, vertical: 15),
+                                color: Color(0XFFFF7A2A),
+                                child: Text(
+                                  "Login",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                onPressed: () async {
+                                  if (email == null) {
+                                    setState(() {
+                                      _emailValidator = true;
+                                      emailError = "Email cannot be empty";
+                                    });
+                                  } else if (password == null) {
+                                    setState(() {
+                                      _passWordValidator = true;
+                                      passwordError =
+                                          "Password cannot be empty";
+                                    });
+                                  } else {
+                                    setState(() {
+                                      isLoading = true;
+                                    });
+                                    await login(email, password, context);
+                                  }
+                                },
                               ),
-                              onPressed: () {
-                                Navigator.pop(context);
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => RegisterScreen(
-                                              type: 'Local',
-                                            )));
-                              },
-                            ),
-                            FlatButton(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 8),
-                              color: Colors.blue,
-                              child: Text(
-                                "create Foreigner account",
-                                style: TextStyle(color: Colors.white),
+                              FlatButton(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 34, vertical: 8),
+                                color: Colors.blue,
+                                child: Text(
+                                  "create Local account",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => RegisterScreen(
+                                                type: 'Local',
+                                              )));
+                                },
                               ),
-                              onPressed: () {
-                                Navigator.pop(context);
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => RegisterScreen(
-                                              type: 'Foreigner',
-                                            )));
-                              },
-                            )
-                          ],
+                              FlatButton(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 8),
+                                color: Colors.blue,
+                                child: Text(
+                                  "create Foreigner account",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => RegisterScreen(
+                                                type: 'Foreigner',
+                                              )));
+                                },
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     )
