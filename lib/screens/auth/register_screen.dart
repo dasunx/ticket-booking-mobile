@@ -127,6 +127,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     double keyboardH = MediaQuery.of(context).viewInsets.bottom;
+    double height = MediaQuery.of(context).size.height;
     String type = ModalRoute.of(context).settings.arguments;
     return GestureDetector(
       onTap: () {
@@ -152,7 +153,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               children: [
                 AnimatedContainer(
                   alignment: Alignment.center,
-                  height: keyboardH > 0 ? 0 : 300,
+                  height: keyboardH > 0 ? 0 : (height / 5) * 2,
                   duration: Duration(milliseconds: 600),
                   curve: Curves.fastOutSlowIn,
                   child: Container(
@@ -192,223 +193,228 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                       ),
                       padding: EdgeInsets.only(top: 40, left: 30, right: 30),
-                      child: Column(
-                        children: [
-                          Container(
-                            child: Theme(
-                              data: ThemeData(),
-                              child: TextField(
-                                onTap: () {
-                                  setErrorsFalse();
-                                },
-                                onChanged: (val) {
-                                  name = val;
-                                },
-                                decoration: InputDecoration(
-                                    errorText: _name ? _errorName : null,
-                                    prefixIcon: Icon(Icons.person),
-                                    enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Colors.grey, width: 1)),
-                                    border: OutlineInputBorder(),
-                                    labelText: "Name",
-                                    hintStyle: TextStyle(
-                                      color: Colors.grey[400],
-                                    )),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            Container(
+                              child: Theme(
+                                data: ThemeData(),
+                                child: TextField(
+                                  onTap: () {
+                                    setErrorsFalse();
+                                  },
+                                  onChanged: (val) {
+                                    name = val;
+                                  },
+                                  decoration: InputDecoration(
+                                      errorText: _name ? _errorName : null,
+                                      prefixIcon: Icon(Icons.person),
+                                      enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Colors.grey, width: 1)),
+                                      border: OutlineInputBorder(),
+                                      labelText: "Name",
+                                      hintStyle: TextStyle(
+                                        color: Colors.grey[400],
+                                      )),
+                                ),
                               ),
                             ),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Container(
-                            child: Theme(
-                              data: ThemeData(),
-                              child: TextField(
-                                onTap: () {
-                                  setErrorsFalse();
-                                },
-                                onChanged: (val) {
-                                  mail = val;
-                                },
-                                decoration: InputDecoration(
-                                    errorText: _mail ? _errormail : null,
-                                    prefixIcon: Icon(Icons.person),
-                                    enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Colors.grey, width: 1)),
-                                    border: OutlineInputBorder(),
-                                    labelText: "Email",
-                                    hintStyle: TextStyle(
-                                      color: Colors.grey[400],
-                                    )),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              child: Theme(
+                                data: ThemeData(),
+                                child: TextField(
+                                  onTap: () {
+                                    setErrorsFalse();
+                                  },
+                                  onChanged: (val) {
+                                    mail = val;
+                                  },
+                                  decoration: InputDecoration(
+                                      errorText: _mail ? _errormail : null,
+                                      prefixIcon: Icon(Icons.person),
+                                      enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Colors.grey, width: 1)),
+                                      border: OutlineInputBorder(),
+                                      labelText: "Email",
+                                      hintStyle: TextStyle(
+                                        color: Colors.grey[400],
+                                      )),
+                                ),
                               ),
                             ),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Container(
-                            child: Theme(
-                              data: ThemeData(),
-                              child: TextField(
-                                onTap: () {
-                                  setErrorsFalse();
-                                },
-                                onChanged: (val) {
-                                  password = val;
-                                },
-                                obscureText: true,
-                                decoration: InputDecoration(
-                                    prefixIcon: Icon(Icons.remove_red_eye),
-                                    border: OutlineInputBorder(),
-                                    enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Colors.grey, width: 1)),
-                                    labelText: "Password",
-                                    errorText:
-                                        _password ? _errorpassword : null,
-                                    errorBorder: OutlineInputBorder().copyWith(
-                                        borderSide:
-                                            BorderSide(color: Colors.red)),
-                                    hintStyle: TextStyle(
-                                      color: Colors.grey[400],
-                                    )),
-                              ),
+                            SizedBox(
+                              height: 10,
                             ),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Container(
-                            child: Theme(
-                              data: ThemeData(),
-                              child: TextField(
-                                obscureText: true,
-                                onTap: () {
-                                  setErrorsFalse();
-                                },
-                                onChanged: (val) {
-                                  conPassword = val;
-                                },
-                                decoration: InputDecoration(
-                                    prefixIcon: Icon(Icons.remove_red_eye),
-                                    errorText:
-                                        _conPassword ? _errorconPassword : null,
-                                    border: OutlineInputBorder(),
-                                    enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Colors.grey, width: 1)),
-                                    labelText: "Password confirm",
-                                    // errorText:
-                                    // emailValidation ? "Add Valid Email" : null,
-                                    errorBorder: OutlineInputBorder().copyWith(
-                                        borderSide:
-                                            BorderSide(color: Colors.red)),
-                                    hintStyle: TextStyle(
-                                      color: Colors.grey[400],
-                                    )),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Container(
-                            child: Theme(
-                              data: ThemeData(),
-                              child: widget.type == "Local"
-                                  ? TextField(
-                                      onTap: () {
-                                        setErrorsFalse();
-                                      },
-                                      onChanged: (val) {
-                                        nic = val;
-                                      },
-                                      decoration: InputDecoration(
-                                          errorText: _nic ? _errornic : null,
-                                          prefixIcon: Icon(
-                                            Icons.format_indent_decrease,
-                                          ),
-                                          enabledBorder: OutlineInputBorder(
+                            Container(
+                              child: Theme(
+                                data: ThemeData(),
+                                child: TextField(
+                                  onTap: () {
+                                    setErrorsFalse();
+                                  },
+                                  onChanged: (val) {
+                                    password = val;
+                                  },
+                                  obscureText: true,
+                                  decoration: InputDecoration(
+                                      prefixIcon: Icon(Icons.remove_red_eye),
+                                      border: OutlineInputBorder(),
+                                      enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Colors.grey, width: 1)),
+                                      labelText: "Password",
+                                      errorText:
+                                          _password ? _errorpassword : null,
+                                      errorBorder: OutlineInputBorder()
+                                          .copyWith(
                                               borderSide: BorderSide(
-                                                  color: Colors.grey,
-                                                  width: 1)),
-                                          border: OutlineInputBorder(),
-                                          labelText: "NIC",
-
-                                          // errorText:
-                                          // emailValidation ? "Add Valid Email" : null,
-                                          errorBorder: OutlineInputBorder()
-                                              .copyWith(
-                                                  borderSide: BorderSide(
-                                                      color: Colors.red)),
-                                          hintStyle: TextStyle(
-                                            color: Colors.grey[400],
-                                          )),
-                                    )
-                                  : TextField(
-                                      onTap: () {
-                                        setErrorsFalse();
-                                      },
-                                      onChanged: (val) {
-                                        passportId = val;
-                                      },
-                                      decoration: InputDecoration(
-                                          errorText: _passportId
-                                              ? _errorpassportId
-                                              : null,
-                                          prefixIcon: Icon(
-                                            Icons.format_indent_decrease,
-                                          ),
-                                          enabledBorder: OutlineInputBorder(
+                                                  color: Colors.red)),
+                                      hintStyle: TextStyle(
+                                        color: Colors.grey[400],
+                                      )),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              child: Theme(
+                                data: ThemeData(),
+                                child: TextField(
+                                  obscureText: true,
+                                  onTap: () {
+                                    setErrorsFalse();
+                                  },
+                                  onChanged: (val) {
+                                    conPassword = val;
+                                  },
+                                  decoration: InputDecoration(
+                                      prefixIcon: Icon(Icons.remove_red_eye),
+                                      errorText: _conPassword
+                                          ? _errorconPassword
+                                          : null,
+                                      border: OutlineInputBorder(),
+                                      enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Colors.grey, width: 1)),
+                                      labelText: "Password confirm",
+                                      // errorText:
+                                      // emailValidation ? "Add Valid Email" : null,
+                                      errorBorder: OutlineInputBorder()
+                                          .copyWith(
                                               borderSide: BorderSide(
-                                                  color: Colors.grey,
-                                                  width: 1)),
-                                          border: OutlineInputBorder(),
-                                          labelText: "Passport Id",
+                                                  color: Colors.red)),
+                                      hintStyle: TextStyle(
+                                        color: Colors.grey[400],
+                                      )),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              child: Theme(
+                                data: ThemeData(),
+                                child: widget.type == "Local"
+                                    ? TextField(
+                                        onTap: () {
+                                          setErrorsFalse();
+                                        },
+                                        onChanged: (val) {
+                                          nic = val;
+                                        },
+                                        decoration: InputDecoration(
+                                            errorText: _nic ? _errornic : null,
+                                            prefixIcon: Icon(
+                                              Icons.format_indent_decrease,
+                                            ),
+                                            enabledBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.grey,
+                                                    width: 1)),
+                                            border: OutlineInputBorder(),
+                                            labelText: "NIC",
 
-                                          // errorText:
-                                          // emailValidation ? "Add Valid Email" : null,
-                                          errorBorder: OutlineInputBorder()
-                                              .copyWith(
-                                                  borderSide: BorderSide(
-                                                      color: Colors.red)),
-                                          hintStyle: TextStyle(
-                                            color: Colors.grey[400],
-                                          )),
-                                    ),
+                                            // errorText:
+                                            // emailValidation ? "Add Valid Email" : null,
+                                            errorBorder: OutlineInputBorder()
+                                                .copyWith(
+                                                    borderSide: BorderSide(
+                                                        color: Colors.red)),
+                                            hintStyle: TextStyle(
+                                              color: Colors.grey[400],
+                                            )),
+                                      )
+                                    : TextField(
+                                        onTap: () {
+                                          setErrorsFalse();
+                                        },
+                                        onChanged: (val) {
+                                          passportId = val;
+                                        },
+                                        decoration: InputDecoration(
+                                            errorText: _passportId
+                                                ? _errorpassportId
+                                                : null,
+                                            prefixIcon: Icon(
+                                              Icons.format_indent_decrease,
+                                            ),
+                                            enabledBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.grey,
+                                                    width: 1)),
+                                            border: OutlineInputBorder(),
+                                            labelText: "Passport Id",
+
+                                            // errorText:
+                                            // emailValidation ? "Add Valid Email" : null,
+                                            errorBorder: OutlineInputBorder()
+                                                .copyWith(
+                                                    borderSide: BorderSide(
+                                                        color: Colors.red)),
+                                            hintStyle: TextStyle(
+                                              color: Colors.grey[400],
+                                            )),
+                                      ),
+                              ),
                             ),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          FlatButton(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 30, vertical: 15),
-                            color: Color(0XFFFF7A2A),
-                            child: Text(
-                              "Register",
-                              style: TextStyle(color: Colors.white),
+                            SizedBox(
+                              height: 20,
                             ),
-                            onPressed: () async {
-                              if (widget.type == "Local") {
-                                registerLocal(context);
-                              } else {}
-                              print('Register btn pressed');
-                            },
-                          ),
-                          FlatButton(
-                            child: Text(
-                              "Have an account?",
-                              style: TextStyle(color: Colors.black),
+                            FlatButton(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 30, vertical: 15),
+                              color: Color(0XFFFF7A2A),
+                              child: Text(
+                                "Register",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              onPressed: () async {
+                                if (widget.type == "Local") {
+                                  registerLocal(context);
+                                } else {}
+                                print('Register btn pressed');
+                              },
                             ),
-                            onPressed: () {
-                              Navigator.popAndPushNamed(
-                                  context, LoginScreen.id);
-                            },
-                          )
-                        ],
+                            FlatButton(
+                              child: Text(
+                                "Have an account?",
+                                style: TextStyle(color: Colors.black),
+                              ),
+                              onPressed: () {
+                                Navigator.popAndPushNamed(
+                                    context, LoginScreen.id);
+                              },
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),

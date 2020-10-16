@@ -67,7 +67,7 @@ class _MakePaymentState extends State<MakePayment> {
   Widget build(BuildContext context) {
     double keyboardH = MediaQuery.of(context).viewInsets.bottom;
     final themeChange = Provider.of<DarkThemeProvider>(context);
-
+    double height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         title: Text("Account top-up"),
@@ -114,7 +114,7 @@ class _MakePaymentState extends State<MakePayment> {
             children: <Widget>[
               AnimatedContainer(
                 alignment: Alignment.center,
-                height: keyboardH > 0 ? 100 : 450,
+                height: keyboardH > 0 ? 100 : (height / 7) * 4,
                 duration: Duration(milliseconds: 600),
                 curve: Curves.fastOutSlowIn,
                 child: Container(
