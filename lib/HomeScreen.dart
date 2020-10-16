@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ticket_booking_client/class/DarkThemeProvider.dart';
@@ -157,7 +158,7 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               Container(
                 padding: EdgeInsets.all(20),
-                margin: EdgeInsets.all(10),
+                margin: EdgeInsets.only(top: 10, bottom: 20),
                 decoration: BoxDecoration(
                   color: themeChange.darkTheme ? Colors.white : Colors.black,
                   borderRadius: new BorderRadius.only(
@@ -179,6 +180,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
         ),
+
         body: GestureDetector(
           onTap: () => _pc.close(),
           child: Container(
@@ -209,6 +211,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     height: (height / 4),
                     padding: EdgeInsets.only(left: 10),
+                    //margin: EdgeInsets.only(top: 10, bottom: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
