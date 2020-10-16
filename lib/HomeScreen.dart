@@ -479,7 +479,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     )),
                                               ],
                                             )
-                                      : Text(''),
+                                      : Center(
+                                          child: CircularProgressIndicator()),
                                 ),
                                 Expanded(
                                   child: isLoaded
@@ -487,7 +488,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ? getTimeDifferent(userDetails
                                               .onGoingJourney.startTime)
                                           : Text('')
-                                      : CircularProgressIndicator(),
+                                      : Text(''),
                                 )
                               ],
                             ),
