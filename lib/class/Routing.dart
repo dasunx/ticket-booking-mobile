@@ -3,6 +3,7 @@ import 'package:ticket_booking_client/HomeScreen.dart';
 import 'package:ticket_booking_client/WelcomeScreen.dart';
 import 'package:ticket_booking_client/screens/auth/login_screen.dart';
 import 'package:ticket_booking_client/screens/auth/register_screen.dart';
+import 'package:ticket_booking_client/screens/fines/fine_history.dart';
 import 'package:ticket_booking_client/screens/loading/LoadingScreen.dart';
 import 'package:ticket_booking_client/screens/payment/make_payment.dart';
 import 'package:ticket_booking_client/screens/payment/payment_history.dart';
@@ -48,6 +49,11 @@ class Routing {
         return MaterialPageRoute(
             builder: (_) => TravelHistory(
                   user: arguments,
+                ));
+      case FineHistory.id:
+        return MaterialPageRoute(
+            builder: (_) => FineHistory(
+                  userDetails: arguments,
                 ));
       default:
         return MaterialPageRoute(

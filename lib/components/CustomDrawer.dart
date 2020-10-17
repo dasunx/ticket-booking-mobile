@@ -10,6 +10,7 @@ import 'package:ticket_booking_client/class/SharedPref.dart';
 import 'package:ticket_booking_client/class/User.dart';
 import 'package:ticket_booking_client/class/UserDetails.dart';
 import 'package:ticket_booking_client/screens/auth/login_screen.dart';
+import 'package:ticket_booking_client/screens/fines/fine_history.dart';
 
 import 'package:ticket_booking_client/screens/payment/make_payment.dart';
 import 'package:ticket_booking_client/screens/payment/payment_history.dart';
@@ -150,6 +151,15 @@ class _CustomDrawerState extends State<CustomDrawer> {
                           arguments: user);
                     },
                     title: "Payment History",
+                  ),
+                  DrawerListTile(
+                    icon: Icons.line_style,
+                    onPress: () {
+                      Navigator.pop(context);
+                      Navigator.pushNamed(context, FineHistory.id,
+                          arguments: widget.userDetails);
+                    },
+                    title: "Fines",
                   ),
                 ],
               ),

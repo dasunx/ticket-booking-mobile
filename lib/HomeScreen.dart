@@ -124,6 +124,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
+    double tileHeight = height / 4.3;
     BorderRadiusGeometry radius = BorderRadius.only(
       topLeft: Radius.circular(14.0),
       topRight: Radius.circular(14.0),
@@ -143,7 +144,7 @@ class _HomeScreenState extends State<HomeScreen> {
           await loadUserDetails();
         },
         maxHeight: (height - 200),
-        minHeight: 100,
+        minHeight: 60,
         controller: _pc,
         panel: Center(
           child: QrCode(
@@ -158,7 +159,7 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               Container(
                 padding: EdgeInsets.all(20),
-                margin: EdgeInsets.only(top: 10, bottom: 20),
+                margin: EdgeInsets.only(top: 10, bottom: 5),
                 decoration: BoxDecoration(
                   color: themeChange.darkTheme ? Colors.white : Colors.black,
                   borderRadius: new BorderRadius.only(
@@ -283,7 +284,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       },
                       child: Container(
                         width: width / 2,
-                        height: height / 4,
+                        height: tileHeight,
                         child: Card(
                           child: Padding(
                             padding: const EdgeInsets.only(top: 10.0),
@@ -353,7 +354,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     Container(
                       width: width / 2,
-                      height: height / 4,
+                      height: tileHeight,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
@@ -413,7 +414,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       },
                       child: Container(
                         width: width / 2,
-                        height: height / 4,
+                        height: tileHeight,
                         child: Card(
                           child: Padding(
                             padding: const EdgeInsets.only(
@@ -429,7 +430,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             ? 'Current Journey'
                                             : 'No current journey'
                                         : 'loading',
-                                    style: TextStyle(fontSize: 18),
+                                    style: TextStyle(fontSize: 16),
                                   ),
                                 ),
                                 Expanded(
@@ -456,14 +457,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   height: 5,
                                                 ),
                                                 Text(
-                                                  "Via",
+                                                  "via ${userDetails.onGoingJourney.busId.substring(0, 2)}-${userDetails.onGoingJourney.busId.substring(2, 6)}",
                                                   style:
-                                                      TextStyle(fontSize: 16),
-                                                ),
-                                                Text(
-                                                  "${userDetails.onGoingJourney.busId.substring(0, 2)}-${userDetails.onGoingJourney.busId.substring(2, 6)}",
-                                                  style:
-                                                      TextStyle(fontSize: 22),
+                                                      TextStyle(fontSize: 18),
                                                 ),
                                               ],
                                             )
@@ -486,6 +482,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           child: CircularProgressIndicator()),
                                 ),
                                 Expanded(
+                                  flex: 2,
                                   child: isLoaded
                                       ? userDetails.onGoingJourney != null
                                           ? getTimeDifferent(userDetails
@@ -501,7 +498,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     Container(
                       width: width / 2,
-                      height: height / 4,
+                      height: tileHeight,
                       child: GestureDetector(
                         onTap: () {
                           Navigator.pushNamed(context, TravelHistory.id,
@@ -540,6 +537,73 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   ],
+                ),
+                Container(
+                  width: width,
+                  height: (tileHeight / 6) * 3,
+                  child: Card(
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 10.0),
+                      child: isLoaded
+                          ? userDetails.fineBalance > 0
+                              ? Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      'You have ${userDetails.fineBalance} LKR fine ',
+                                      style: TextStyle(fontSize: 18),
+                                    ),
+                                    Spacer(),
+                                    GestureDetector(
+                                      onTap: () {
+                                        Navigator.of(context).pushNamed(
+                                            MakePayment.id,
+                                            arguments: widget.user);
+                                      },
+                                      child: Container(
+                                        color: Colors.red,
+                                        height: 100,
+                                        width: 100,
+                                        child: Center(
+                                            child: Text(
+                                          'pay',
+                                          style: TextStyle(fontSize: 18),
+                                        )),
+                                      ),
+                                    )
+                                  ],
+                                )
+                              : userDetails.balance <= 100
+                                  ? Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'Your balance is low, please top-up',
+                                          style: TextStyle(fontSize: 18),
+                                        ),
+                                      ],
+                                    )
+                                  : Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'Please Follow the health instructions',
+                                          style: TextStyle(fontSize: 18),
+                                        ),
+                                      ],
+                                    )
+                          : Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Center(
+                                  child: Text('getting your info'),
+                                ),
+                              ],
+                            ),
+                    ),
+                  ),
                 ),
               ],
             ),

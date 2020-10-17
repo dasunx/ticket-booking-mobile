@@ -3,15 +3,25 @@ import 'dart:convert';
 import 'package:ticket_booking_client/class/Journey.dart';
 import 'package:ticket_booking_client/class/Payment.dart';
 
+import 'Fine.dart';
+
 class UserDetails {
   double balance;
   List<Payment> paymentHistory;
   bool ongoing;
   Journey onGoingJourney;
   List<Journey> travelHistory;
+  double fineBalance;
+  List<Fine> fineHistory;
 
-  UserDetails(this.balance, this.paymentHistory, this.ongoing,
-      this.onGoingJourney, this.travelHistory);
+  UserDetails(
+      this.balance,
+      this.paymentHistory,
+      this.ongoing,
+      this.onGoingJourney,
+      this.travelHistory,
+      this.fineBalance,
+      this.fineHistory);
 }
 
 Future<UserDetails> userDetailsFromJson(var json) async {
@@ -19,8 +29,10 @@ Future<UserDetails> userDetailsFromJson(var json) async {
   List<Payment> paymentHistory;
   Journey onGoingJourney;
   List<Journey> travelHistory;
+  List<Fine> fineHistory;
   double balance = double.parse(json['balance'].toString());
   bool ongoing = json['ongoing'];
+  double fineBalance = double.parse(json['fineBalance'].toString());
   if (ongoing) {
     print(json['journey']);
     onGoingJourney = new Journey.fromJson(json['journey']);
@@ -29,8 +41,10 @@ Future<UserDetails> userDetailsFromJson(var json) async {
   }
   paymentHistory = paymentListFromJson(json["paymentHistory"]);
   travelHistory = journeyListFromJson(json['journeyHistory']);
-  userDetails = new UserDetails(
-      balance, paymentHistory, ongoing, onGoingJourney, travelHistory);
+  fineHistory = fineListFromJson(json['fineHistory']);
+  userDetails = new UserDetails(balance, paymentHistory, ongoing,
+      onGoingJourney, travelHistory, fineBalance, fineHistory);
+
   return userDetails;
 }
 
@@ -51,4 +65,18 @@ List<Journey> journeyListFromJson(var json) {
     journeyList.add(j);
   });
   return journeyList;
+}
+
+List<Fine> fineListFromJson(var json) {
+  List<Fine> fineList = new List<Fine>();
+  json.forEach((ele) {
+    if (ele['paid'] == true) {
+      Fine f = new Fine.fromJson(ele);
+      fineList.add(f);
+    } else {
+      Fine f = new Fine.unPaidFinefromJson(ele);
+      fineList.add(f);
+    }
+  });
+  return fineList;
 }
