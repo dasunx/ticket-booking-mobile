@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:ticket_booking_client/class/DarkThemeProvider.dart';
 import 'package:ticket_booking_client/class/Payment.dart';
 import 'package:ticket_booking_client/class/User.dart';
 import 'package:http/http.dart' as http;
@@ -56,6 +58,7 @@ class _PaymentHistoryState extends State<PaymentHistory> {
 
   @override
   Widget build(BuildContext context) {
+    final themeChange = Provider.of<DarkThemeProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text("Payment history"),
@@ -77,11 +80,24 @@ class _PaymentHistoryState extends State<PaymentHistory> {
                                 Row(
                                   children: [
                                     Text(
-                                      'LKR ${phItems[index].payAmount.toString()}',
+                                      phItems[index].type == "Fine"
+                                          ? '- LKR ${phItems[index].payAmount.toString()}'
+                                          : 'LKR ${phItems[index].payAmount.toString()}',
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        color: phItems[index].type == "Fine"
+                                            ? Colors.red
+                                            : themeChange.darkTheme
+                                                ? Colors.white
+                                                : Colors.black,
+                                      ),
                                     ),
                                     Spacer(),
                                     Chip(
-                                      backgroundColor: Colors.blue,
+                                      backgroundColor:
+                                          phItems[index].type == "Fine"
+                                              ? Colors.red
+                                              : Colors.blue,
                                       label: Text(
                                         '${phItems[index].type.toString()}',
                                       ),

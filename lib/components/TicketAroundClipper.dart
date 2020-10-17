@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// [TicketBothSidesClipper], can be used with [ClipPath] widget, and clips the widget like a movie ticket
+/// [MovieTicketBothSidesClipper], can be used with [ClipPath] widget, and clips the widget like a movie ticket
 class TicketBothSidesClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {

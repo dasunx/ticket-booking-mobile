@@ -28,4 +28,10 @@ class User {
         role = json['user']['role'],
         token = json['token'],
         balance = double.parse(json['user']['balance'].toString());
+
+  User.managerFromJson(Map<String, dynamic> json)
+      : userId = json['_id'],
+        email = json['email'],
+        name = json['name'],
+        role = json['role'];
 }
