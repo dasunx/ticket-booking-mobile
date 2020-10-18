@@ -229,7 +229,7 @@ class _FineHistoryState extends State<FineHistory> {
                       itemCount: paidItems.length,
                       itemBuilder: (context, index) {
                         return Container(
-                          height: 265,
+                          height: 250,
                           child: Card(
                             color: themeChange.darkTheme
                                 ? Color(0XFF1E453E)
@@ -266,43 +266,39 @@ class _FineHistoryState extends State<FineHistory> {
                                     ),
                                   ),
                                   Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        "Paid amount :",
-                                        style: TextStyle(fontSize: 18),
-                                      ),
-                                      Spacer(),
-                                      Text(
-                                        'LKR ${paidItems[index].paidAmount}',
+                                        "Full payment done",
                                         style: TextStyle(fontSize: 18),
                                       ),
                                     ],
                                   ),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        "Balance amount :",
-                                        style: TextStyle(fontSize: 18),
-                                      ),
-                                      Spacer(),
-                                      Text(
-                                        'LKR ${paidItems[index].amount}',
-                                        style: TextStyle(fontSize: 18),
-                                      ),
-                                    ],
-                                  ),
+                                  // Row(
+                                  //   children: [
+                                  //     Text(
+                                  //       "Balance amount :",
+                                  //       style: TextStyle(fontSize: 18),
+                                  //     ),
+                                  //     Spacer(),
+                                  //     Text(
+                                  //       'LKR ${paidItems[index].amount}',
+                                  //       style: TextStyle(fontSize: 18),
+                                  //     ),
+                                  //   ],
+                                  // ),
                                   Divider(),
                                   Text(
-                                    'Received',
+                                    'Fine details',
                                     textAlign: TextAlign.left,
                                   ),
                                   Row(
                                     children: [
                                       Text(
-                                          "Date : ${DateFormat.yMMMd().format(paidItems[index].date.toLocal())} "),
+                                          "From : ${DateFormat.yMMMd().format(paidItems[index].date.toLocal())} "),
                                       Spacer(),
                                       Text(
-                                          "By : ${paidItems[index].manager.name}")
+                                          "Paid :${DateFormat.yMMMd().format(paidItems[index].paidDate.toLocal())}")
                                     ],
                                   ),
                                   SizedBox(
@@ -312,6 +308,9 @@ class _FineHistoryState extends State<FineHistory> {
                                     children: [
                                       Text(
                                           "Contact email : ${paidItems[index].manager.email} "),
+                                      Spacer(),
+                                      Text(
+                                          "By : ${paidItems[index].manager.name}")
                                     ],
                                   ),
                                   Row(

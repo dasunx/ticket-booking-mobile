@@ -1,16 +1,28 @@
-# ticket_booking_client
+# Urban Travel System Passenger mobile
 
-Ticket booking app clients version
+## Mobile app for passengers
 
-## Getting Started
+### Backend
+<a href='https://github.com/Dasunx/ticket-automation-backend'>Backend source</a></br>
 
-This project is a starting point for a Flutter application.
+### Links for Front-end projects
 
-A few resources to get you started if this is your first Flutter project:
+<a href='https://github.com/tmKamal/digital-travel-card-reader' target='_blank'> Bus System (React) - github </a></br>
+<a href='https://salty-tundra-07291.herokuapp.com/' target='_blank'> Bus System (React) - Deployed </a></br>
+<a href='https://github.com/tmKamal/urban-transport-ticketing-system'> Manager controll unit (React) - github </a></br>
+<a href='https://urban-transport-ticketing-system.vercel.app'> Manager controll unit (React) - Deployed </a></br>
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## Mobile apps
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Ticket Checker mobile
+
+<a href='https://github.com/Dasunx/ticket-booking-mobile'><img src='https://i.imgur.com/nxNkW25.png' width="300"> Ticket Checker - Mobile app</a></br>
+
+## UI
+
+### Homepage
+<img src="https://i.imgur.com/nxIZ1II.png" width="300">
+
+
+
+github - <a href="https://github.com/Dasunx/ticket-booking-mobile"> Github</a>
