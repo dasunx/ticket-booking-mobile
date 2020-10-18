@@ -466,7 +466,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           : Column(
                                               children: [
                                                 Container(
-                                                    height: height / 8,
+                                                    height: height / 10,
                                                     decoration: BoxDecoration(
                                                       image: DecorationImage(
                                                         image: AssetImage(
