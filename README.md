@@ -21,8 +21,21 @@
 ## UI
 
 ### Homepage
-<img src="https://i.imgur.com/nxIZ1II.png" width="300">
 
+| First screen | Login screen | local regiser | Foreigner register |
+| ------------- | ------------- | ------------- | ------------- |
+| <img src="https://i.imgur.com/Smvom6F.png" width="300">  | <img src="https://i.imgur.com/AUKEkSl.png" width="300">   | <img src="https://i.imgur.com/TXbmVc8.png" width="300">  | <img src="https://i.imgur.com/cJVyp7k.png" width="300">   |
 
+| Home page | MyQr code | Drawer | Payment History |
+| ------------- | ------------- | ------------- | ------------- |
+| <img src="https://i.imgur.com/nxIZ1II.png" width="300">  | <img src="https://i.imgur.com/Wh1o0Xr.png" width="300">   | <img src="https://i.imgur.com/jmMxwOT.png" width="300">  | <img src="https://i.imgur.com/5rGKzIP.png" width="300">   |
+
+| current fines screen | Paid Fines history | Travel History | Empty screen |
+| ------------- | ------------- | ------------- | ------------- |
+| <img src="https://i.imgur.com/5UQLcIY.png" width="300">  | <img src="https://i.imgur.com/aEkqZ3e.png" width="300">   | <img src="https://i.imgur.com/aP6hMME.png" width="300">  | <img src="https://i.imgur.com/W4PMvfI.png" width="300">   |
+
+| payment screen | select payment method | payment details | payment success |
+| ------------- | ------------- | ------------- | ------------- |
+| <img src="https://i.imgur.com/nT6ljmg.png" width="300">  | <img src="https://i.imgur.com/GVRdcfy.png" width="300">   | <img src="https://i.imgur.com/eCUaA2I.png" width="300">  | <img src="https://i.imgur.com/1fvOeJO.png" width="300">   |
 
 github - <a href="https://github.com/Dasunx/ticket-booking-mobile"> Github</a>
