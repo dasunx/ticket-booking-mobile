@@ -67,7 +67,7 @@ class _FineHistoryState extends State<FineHistory> {
                       itemCount: currentItems.length,
                       itemBuilder: (context, index) {
                         return Container(
-                          height: 265,
+                          height: 285,
                           child: Card(
                             color: themeChange.darkTheme
                                 ? Color(0XFF1E453E)
@@ -229,7 +229,7 @@ class _FineHistoryState extends State<FineHistory> {
                       itemCount: paidItems.length,
                       itemBuilder: (context, index) {
                         return Container(
-                          height: 250,
+                          height: 260,
                           child: Card(
                             color: themeChange.darkTheme
                                 ? Color(0XFF1E453E)
@@ -302,7 +302,7 @@ class _FineHistoryState extends State<FineHistory> {
                                     ],
                                   ),
                                   SizedBox(
-                                    height: 5,
+                                    height: 10,
                                   ),
                                   Row(
                                     children: [

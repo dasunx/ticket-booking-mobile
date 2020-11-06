@@ -136,7 +136,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       alignment: Alignment.center,
                       height: keyboardH > 0
                           ? 0
-                          : (MediaQuery.of(context).size.height / 5) * 3,
+                          : (MediaQuery.of(context).size.height / 4.5) * 3,
                       duration: Duration(milliseconds: 600),
                       curve: Curves.fastOutSlowIn,
                       child: Container(
@@ -252,11 +252,14 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                               FlatButton(
                                 padding: EdgeInsets.symmetric(
-                                    horizontal: 30, vertical: 15),
+                                    horizontal: 60, vertical: 15),
                                 color: Color(0XFFFF7A2A),
                                 child: Text(
                                   "Login",
-                                  style: TextStyle(color: Colors.white),
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18),
                                 ),
                                 onPressed: () async {
                                   if (email == null) {
@@ -278,42 +281,42 @@ class _LoginScreenState extends State<LoginScreen> {
                                   }
                                 },
                               ),
-                              FlatButton(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 34, vertical: 8),
-                                color: Colors.blue,
-                                child: Text(
-                                  "create Local account",
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => RegisterScreen(
-                                                type: 'Local',
-                                              )));
-                                },
-                              ),
-                              FlatButton(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 8),
-                                color: Colors.blue,
-                                child: Text(
-                                  "create Foreigner account",
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => RegisterScreen(
-                                                type: 'Foreigner',
-                                              )));
-                                },
-                              )
+                              // FlatButton(
+                              //   padding: EdgeInsets.symmetric(
+                              //       horizontal: 34, vertical: 8),
+                              //   color: Colors.blue,
+                              //   child: Text(
+                              //     "create Local account",
+                              //     style: TextStyle(color: Colors.white),
+                              //   ),
+                              //   onPressed: () {
+                              //     Navigator.pop(context);
+                              //     Navigator.push(
+                              //         context,
+                              //         MaterialPageRoute(
+                              //             builder: (context) => RegisterScreen(
+                              //                   type: 'Local',
+                              //                 )));
+                              //   },
+                              // ),
+                              // FlatButton(
+                              //   padding: EdgeInsets.symmetric(
+                              //       horizontal: 20, vertical: 8),
+                              //   color: Colors.blue,
+                              //   child: Text(
+                              //     "create Foreigner account",
+                              //     style: TextStyle(color: Colors.white),
+                              //   ),
+                              //   onPressed: () {
+                              //     Navigator.pop(context);
+                              //     Navigator.push(
+                              //         context,
+                              //         MaterialPageRoute(
+                              //             builder: (context) => RegisterScreen(
+                              //                   type: 'Foreigner',
+                              //                 )));
+                              //   },
+                              // )
                             ],
                           ),
                         ),
