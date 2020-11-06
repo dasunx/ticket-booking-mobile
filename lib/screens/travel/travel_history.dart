@@ -117,7 +117,7 @@ class _TravelHistoryState extends State<TravelHistory> {
                                 ),
                               ),
                               SizedBox(
-                                height: 10,
+                                height: 5,
                               ),
                               Text(
                                 'LKR ${phItems[index].cost.toString()}',
@@ -135,7 +135,7 @@ class _TravelHistoryState extends State<TravelHistory> {
                                 lineThickness: 1,
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(top: 15.0),
+                                padding: const EdgeInsets.only(top: 10.0),
                                 child: Row(
                                   children: [
                                     Text(
